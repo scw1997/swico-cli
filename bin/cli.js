@@ -9,7 +9,7 @@
 const program = require('commander')
 const figlet = require('figlet')
 const chalk = require('chalk')
-const createApp = require('../lib/createApp')
+const createApp = require('../lib/create')
 
 
 program
@@ -45,7 +45,7 @@ program
 program
     .on('--help', () => {
         // 使用 figlet 绘制 Logo
-        console.log('\r\n' + figlet.textSync('zhurong', {
+        console.log('\r\n' + figlet.textSync('ts-react-cli', {
             font: 'Ghost',
             horizontalLayout: 'default',
             verticalLayout: 'default',
@@ -53,7 +53,7 @@ program
             whitespaceBreak: true
         }));
         // 新增说明信息
-        console.log(`\r\nRun ${chalk.cyan(`roc <command> --help`)} show details\r\n`)
+        console.log(`\r\nRun ${chalk.cyan(`ts-react-cli <command> --help`)} show details\r\n`)
     })
 
 
