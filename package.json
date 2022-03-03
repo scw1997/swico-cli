@@ -1,24 +1,27 @@
 {
-  "name": "ts-react-cli",
+  "name": "treo",
   "version": "1.0.0",
   "description": "typescript+react hooks +webpack",
   "main": "index.js",
   "bin": {
-    "ts-react-cli": "./bin/cli.js"
+    "treo": "./bin/cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/scw19970622/ts-react-cli.git"
+    "url": "https://gitee.com/fanlaBoy/react-infinite.git"
   },
   "author": "scw",
   "license": "ISC",
   "devDependencies": {
+    "download-git-repo": "^3.0.2",
+    "fs-extra": "^10.0.1",
     "inquirer": "^8.2.0"
   },
   "dependencies": {
+    "axios": "^0.26.0",
     "chalk": "^4.1.2",
     "commander": "^8.2.0",
     "figlet": "^1.5.2"

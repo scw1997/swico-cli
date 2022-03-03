@@ -32,20 +32,20 @@ program
         console.log(value, options)
     })
 
-// 配置 ui 命令
-program
-    .command('ui')
-    .description('start add open roc-cli ui')
-    .option('-p, --port <port>', 'Port used for the UI Server')
-    .action((option) => {
-        console.log(option)
-    })
+// // 配置 ui 命令
+// program
+//     .command('ui')
+//     .description('start add open roc-cli ui')
+//     .option('-p, --port <port>', 'Port used for the UI Server')
+//     .action((option) => {
+//         console.log(option)
+//     })
 
 
 program
     .on('--help', () => {
         // 使用 figlet 绘制 Logo
-        console.log('\r\n' + figlet.textSync('ts-react-cli', {
+        console.log('\r\n' + figlet.textSync('treo', {
             font: 'Ghost',
             horizontalLayout: 'default',
             verticalLayout: 'default',
