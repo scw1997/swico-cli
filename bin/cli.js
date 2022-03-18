@@ -9,28 +9,41 @@
 const program = require('commander')
 const figlet = require('figlet')
 const chalk = require('chalk')
-const createApp = require('../lib/create')
+const createApp = require('../script/create')
+const start = require('../script/start')
+
+// import program from 'commander'
+// import figlet from 'figlet'
+// import chalk from "chalk";
+// import createApp from '../script/create.js'
+// import start from '../script/start.js'
 
 
 program
     .command('create <app-name>')
-    .description('create a new project')
-    .option('-f, --force', 'overwrite target directory if it exist') // 是否强制创建，当文件夹已经存在
+    .description('创建新项目')
+    .option('-f, --force', '如果目标文件夹已存在则覆盖') // 是否强制创建，当文件夹已经存在
     .action((name, options) => {
         // 在 create.js 中执行创建任务
         createApp(name, options)
     })
 
-
 program
-    .command('config [value]')
-    .description('inspect and modify the config')
-    .option('-g, --get <path>', 'get value from option')
-    .option('-s, --set <path> <value>')
-    .option('-d, --delete <path>', 'delete option from config')
-    .action((value, options) => {
-        console.log(value, options)
+    .command('start')
+    .description('启动')
+    .action(()=>{
+        start()
     })
+
+// program
+//     .command('config [value]')
+//     .description('inspect and modify the config')
+//     .option('-g, --get <path>', 'get value from option')
+//     .option('-s, --set <path> <value>')
+//     .option('-d, --delete <path>', 'delete option from config')
+//     .action((value, options) => {
+//         console.log(value, options)
+//     })
 
 // // 配置 ui 命令
 // program
@@ -53,7 +66,7 @@ program
             whitespaceBreak: true
         }));
         // 新增说明信息
-        console.log(`\r\nRun ${chalk.cyan(`ts-react-cli <command> --help`)} show details\r\n`)
+        console.log(`\r\nRun ${chalk.cyan(`TREO <command> --help`)} show details\r\n`)
     })
 
 
@@ -65,6 +78,7 @@ program
 
 // 解析用户执行命令传入参数
 program.parse(process.argv);
+
 
 
 
