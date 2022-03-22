@@ -132,7 +132,7 @@ module.exports={
 						]
 					},
 					{
-						test: /\.(jpg|png|gif)$/,
+						test: /\.(jpg|png|gif|jpeg|webp)$/,
 						loader: 'url-loader',
 						options: {
 							//小于8k则处理成base64，否则处理成文件形式
@@ -163,7 +163,7 @@ module.exports={
 	plugins: [
 		new htmlWebpackPlugin({
 			//不使用默认html文件，使用自己定义的html模板并自动引入打包后的js/css
-			template: path.resolve(__dirname,'../src/template/index.html'),
+			template: path.resolve(__dirname,'../src/index.html'),
 			filename: 'index.html', //打包后的文件名
 			minify: { //压缩和简化代码
 				collapseWhitespace:true, //去掉空行和空格

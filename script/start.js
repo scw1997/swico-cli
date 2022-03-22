@@ -34,50 +34,6 @@ module.exports = async function () {
         console.log('本地服务启动了')
     })
 
-    // webpack({
-    //     mode:'production',
-    //     entry: routesPath,
-    //     //打包后文件路径
-    //     output: {
-    //         path:path.resolve(__dirname,'./build'),
-    //         filename: 'route.js'
-    //     },
-    //     module: {
-    //         // rules: [
-    //         //     {
-    //         //         test: /\.(tsx|ts)$/,
-    //         //         exclude: /node_modules/,
-    //         //         use: ['ts-loader',]
-    //         //     },
-    //         //
-    //         // ]
-    //     },
-    //
-    // },(err,stats)=>{
-    //    //  const routePath = path.resolve(__dirname,'./build/route.js')
-    //    // const xx = require(routePath)
-    //    //  console.log('xxx',xx)
-    //
-    //     if (err) {
-    //         console.error(err.stack || err);
-    //         if (err.details) {
-    //             console.error(err.details);
-    //         }
-    //         return;
-    //     }
-    //
-    //     const info = stats.toJson();
-    //
-    //     if (stats.hasErrors()) {
-    //         console.error(info.errors);
-    //     }
-    //
-    //     if (stats.hasWarnings()) {
-    //         console.warn(info.warnings);
-    //     }
-    //
-    //
-    // })
 
 
 

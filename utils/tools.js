@@ -6,8 +6,15 @@ const downGit = require('download-git-repo')
     loading.start('正在创建项目模板')
     return new Promise((resolve, reject) => {
         downGit('https://gitee.com:fanlaBoy/treo-typescript-temp#master',targetPath,{clone:true},(e)=>{
-            resolve()
-            loading.succeed('创建完成')
+            if(e){
+                const err = e.toString()
+                loading.fail(err)
+                reject(err)
+            }else{
+                resolve()
+                loading.succeed('创建完成')
+            }
+
         })
     })
 }
