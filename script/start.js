@@ -4,6 +4,10 @@
 const path = require('path')
 const fs = require('fs-extra')
 const webpack = require('webpack')
+const WebpackDevServer = require('webpack-dev-server')
+const startConfig = require('../template/config/webpack.dev')
+const compiler = webpack(startConfig);
+
 //支持直接引入ts或es6模块
 require("ts-node/register");
 
@@ -20,9 +24,15 @@ module.exports = async function () {
     // start对应的dev配置文件
     const configPath  = path.resolve(configDir,'./config.dev.ts')
 
+
     const {default:routeData} = require(routesPath)
 
-    console.log('routeData',routeData.name)
+    //启动服务
+    const devServer = new WebpackDevServer(startConfig.devServer,compiler)
+
+    devServer.startCallback(()=>{
+        console.log('本地服务启动了')
+    })
 
     // webpack({
     //     mode:'production',

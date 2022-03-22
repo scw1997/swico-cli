@@ -1,6 +1,6 @@
 import React, {FC, Suspense, lazy} from 'react';
 import './index.css';
-import RouteList from '../src/routes/router';
+import RouteList from './routes/router';
 import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 
 

@@ -1,4 +1,3 @@
-import { Route,Page } from './router.d';
 
 const Page1:Page = ()=>import('../pages/page1');
 

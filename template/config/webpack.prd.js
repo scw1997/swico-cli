@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
 
 	...commonConfig,
-
+	mode: "production",
 	optimization: {
 		minimizer: [
 			//压缩css

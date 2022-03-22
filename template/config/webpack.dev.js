@@ -3,6 +3,7 @@ const path = require('path');
 
 module.exports = {
 	...commonConfig,
+	mode: "development",
 	devServer: {
 		port:3001,//端口
 		client: {

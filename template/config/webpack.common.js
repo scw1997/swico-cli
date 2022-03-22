@@ -6,10 +6,10 @@ const miniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports={
 
 	//入口文件路径，必须为js
-	entry: path.join(__dirname,'../src/index.tsx'),
+	entry: path.resolve(__dirname,'../src/index.tsx'),
 	//打包后文件路径
 	output: {
-		path:path.join(__dirname,'../build'),
+		path:path.resolve(__dirname,'../build'),
 		filename: '[chunkhash].[name].js'
 	},
 	module: {
@@ -17,7 +17,21 @@ module.exports={
 			{
 				test: /\.(tsx|ts)$/,
 				exclude: /node_modules/,
-				use: ['babel-loader','ts-loader','eslint-loader']
+				use: [
+					{
+						loader: 'babel-loader',
+						options: {
+							presets: [
+								"@babel/preset-react",
+								"@babel/preset-env"
+							],
+							plugins: [
+								"@babel/plugin-transform-runtime",
+								"@babel/plugin-proposal-class-properties"
+							]
+						}
+					},
+					'ts-loader','eslint-loader']
 			},
 
 			{

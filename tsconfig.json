@@ -5,7 +5,7 @@
     "types": [
       "node"
     ],
-    "target": "esnext",//指定ECMAScript目标版本 "ES3"（默认）， "ES5"， "ES6"/ "ES2015"， "ES2016"， "ES2017"或 "ESNext"。
+    "target": "es5",//指定ECMAScript目标版本 "ES3"（默认）， "ES5"， "ES6"/ "ES2015"， "ES2016"， "ES2017"或 "ESNext"。
     "sourceMap": true,//生成相应的 .map文件
     "allowJs": true,
     "skipLibCheck": false,//忽略所有的声明文件（ *.d.ts）的类型检查。
