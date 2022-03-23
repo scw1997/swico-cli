@@ -10,13 +10,7 @@ const program = require('commander')
 const figlet = require('figlet')
 const chalk = require('chalk')
 const createApp = require('../script/create')
-const start = require('../script/start')
 
-// import program from 'commander'
-// import figlet from 'figlet'
-// import chalk from "chalk";
-// import createApp from '../script/create.js'
-// import start from '../script/start.js'
 
 
 program
@@ -26,13 +20,6 @@ program
     .action((name, options) => {
         // 在 create.js 中执行创建任务
         createApp(name, options)
-    })
-
-program
-    .command('start')
-    .description('启动')
-    .action(()=>{
-        start()
     })
 
 // program
