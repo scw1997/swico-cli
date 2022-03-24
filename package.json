@@ -1,31 +1,27 @@
 {
-  "name": "treo",
-  "version": "1.0.0",
+  "name": "scewo",
+  "version": "0.0.2",
   "description": "TypeScript & React Cli",
   "main": "index.js",
   "bin": {
-    "treo": "./bin/cli.js"
+    "scewo": "./bin/cli.js"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "https://gitee.com/fanlaBoy/treo.git"
   },
   "author": "scw",
   "license": "ISC",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^8.2.0",
+    "cross-env": "^7.0.3",
     "download-git-repo": "^3.0.2",
     "figlet": "^1.5.2",
     "fs-extra": "^10.0.1",
     "inquirer": "^8.2.0",
     "ora": "^5.1.0"
-  },
-  "dependencies": {
-
   }
-
 }
