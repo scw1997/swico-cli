@@ -1,11 +1,12 @@
 const getCommonConfig = require('./webpack.common.js');
-const cssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const { ANALYZE } = process.env;
 
 module.exports = (options)=> {
 	const commonConfig = getCommonConfig(options);
+
 	return {
 		...commonConfig,
 		mode: 'production',
@@ -13,11 +14,11 @@ module.exports = (options)=> {
 		optimization: {
 			minimizer: [
 				//压缩css
-				new cssMinimizerPlugin({
-					parallel: true,   // 启动多线程压缩
+				new CssMinimizerPlugin({
+					parallel: true, // 启动多线程压缩
 					minimizerOptions: {
-						preset: ['advanced'],  // cssnano https://cssnano.co/docs/optimisations/
-					}
+						preset: ['advanced'], // cssnano https://cssnano.co/docs/optimisations/
+					},
 
 				}),
 			],
@@ -25,7 +26,7 @@ module.exports = (options)=> {
 		plugins: [
 			...commonConfig.plugins,
 			new CleanWebpackPlugin(),
-			new cssMinimizerPlugin(),
+			new CssMinimizerPlugin(),
 			new BundleAnalyzerPlugin({
 
 				analyzerMode: ANALYZE === 'true' ? 'server' : 'disabled',
@@ -37,8 +38,8 @@ module.exports = (options)=> {
 				generateStatsFile: true,
 				statsFilename: 'analyze.json',
 				statsOptions: null,
-				logLevel: 'info'
-			})
-		]
+				logLevel: 'info',
+			}),
+		],
 	};
 };

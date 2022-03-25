@@ -1,15 +1,15 @@
 {
-  "name": "kevel",
+  "name": "secywo",
   "version": "0.0.1",
   "description": "TypeScript & React Cli",
   "main": "index.js",
   "bin": {
-    "kevel": "./bin/cli.js"
+    "secywo": "./bin/cli.js"
   },
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/fanlaBoy/treo.git"
+    "url": "https://gitee.com/fanlaBoy/secywo.git"
   },
   "author": "scw",
   "license": "ISC",
@@ -47,6 +47,7 @@
     "less-loader": "^10.0.1",
     "mini-css-extract-plugin": "^2.4.2",
     "ora": "^5.1.0",
+    "portfinder": "^1.0.28",
     "postcss-loader": "^6.1.1",
     "postcss-preset-env": "^7.4.3",
     "style-loader": "^3.3.0",

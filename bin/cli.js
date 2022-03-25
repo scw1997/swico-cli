@@ -13,30 +13,39 @@ const createApp = require('../script/create');
 const start = require('../script/start');
 const build = require('../script/build');
 
-
+//创建secywo项目
 program
 	.command('create <app-name>')
-	.description('创建新项目')
-	.option('-f, --force', '如果目标文件夹已存在则覆盖') // 是否强制创建，当文件夹已经存在
+	.description('create a new project ')
+	.option('-f, --force', 'if the destination folder already exists, it will be overwritten') // 是否强制创建，当文件夹已经存在
 	.action((name, options) => {
 		// 在 create.js 中执行创建任务
 		createApp(name, options);
 	});
 
+//项目启动开发环境服务
 program
 	.command('start')
-	.description('启动')
+	.description('start the development environment service')
 	.action(()=>{
 		start();
 	});
 
+//打包构建
 program
 	.command('build')
-	.description('打包')
+	.description('package to build the output product')
 	.action(()=>{
 		build();
 	});
 
+//打包构建
+program
+	.command('analyze')
+	.description('visualize size of webpack output files with an interactive zoomable treemap')
+	.action(()=>{
+		build();
+	});
 
 // program
 //     .command('config [value]')
@@ -48,30 +57,20 @@ program
 //         console.log(value, options)
 //     })
 
-// // 配置 ui 命令
-// program
-//     .command('ui')
-//     .description('start add open roc-cli ui')
-//     .option('-p, --port <port>', 'Port used for the UI Server')
-//     .action((option) => {
-//         console.log(option)
-//     })
-
 
 program
 	.on('--help', () => {
 		// 使用 figlet 绘制 Logo
-		console.log('\r\n' + figlet.textSync('treo', {
+		console.log('\r\n' + figlet.textSync('secywo', {
 			font: 'Ghost',
 			horizontalLayout: 'default',
 			verticalLayout: 'default',
 			width: 80,
-			whitespaceBreak: true
+			whitespaceBreak: true,
 		}));
 		// 新增说明信息
-		console.log(`\r\nRun ${chalk.cyan('TREO <command> --help')} show details\r\n`);
+		console.log(`\r\nRun ${chalk.cyan('secywo <command> --help')} show details\r\n`);
 	});
-
 
 
 program
@@ -81,9 +80,5 @@ program
 
 // 解析用户执行命令传入参数
 program.parse(process.argv);
-
-
-
-
 
 
