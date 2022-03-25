@@ -6,21 +6,37 @@
 // 具体就是通过 chmod 755 cli.js 实现修改
 
 
-const program = require('commander')
-const figlet = require('figlet')
-const chalk = require('chalk')
-const createApp = require('../script/create')
-
+const program = require('commander');
+const figlet = require('figlet');
+const chalk = require('chalk');
+const createApp = require('../script/create');
+const start = require('../script/start');
+const build = require('../script/build');
 
 
 program
-    .command('create <app-name>')
-    .description('创建新项目')
-    .option('-f, --force', '如果目标文件夹已存在则覆盖') // 是否强制创建，当文件夹已经存在
-    .action((name, options) => {
-        // 在 create.js 中执行创建任务
-        createApp(name, options)
-    })
+	.command('create <app-name>')
+	.description('创建新项目')
+	.option('-f, --force', '如果目标文件夹已存在则覆盖') // 是否强制创建，当文件夹已经存在
+	.action((name, options) => {
+		// 在 create.js 中执行创建任务
+		createApp(name, options);
+	});
+
+program
+	.command('start')
+	.description('启动')
+	.action(()=>{
+		start();
+	});
+
+program
+	.command('build')
+	.description('打包')
+	.action(()=>{
+		build();
+	});
+
 
 // program
 //     .command('config [value]')
@@ -43,25 +59,25 @@ program
 
 
 program
-    .on('--help', () => {
-        // 使用 figlet 绘制 Logo
-        console.log('\r\n' + figlet.textSync('treo', {
-            font: 'Ghost',
-            horizontalLayout: 'default',
-            verticalLayout: 'default',
-            width: 80,
-            whitespaceBreak: true
-        }));
-        // 新增说明信息
-        console.log(`\r\nRun ${chalk.cyan(`TREO <command> --help`)} show details\r\n`)
-    })
+	.on('--help', () => {
+		// 使用 figlet 绘制 Logo
+		console.log('\r\n' + figlet.textSync('treo', {
+			font: 'Ghost',
+			horizontalLayout: 'default',
+			verticalLayout: 'default',
+			width: 80,
+			whitespaceBreak: true
+		}));
+		// 新增说明信息
+		console.log(`\r\nRun ${chalk.cyan('TREO <command> --help')} show details\r\n`);
+	});
 
 
 
 program
 // 配置版本号信息
-    .version(`v${require('../package.json').version}`)
-    .usage('<command> [option]')
+	.version(`v${require('../package.json').version}`)
+	.usage('<command> [option]');
 
 // 解析用户执行命令传入参数
 program.parse(process.argv);
