@@ -11,10 +11,6 @@
         "no-console": 0,
         "no-unused-vars": "error",
         "no-use-before-define": "error",
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
         "quotes": [
             "error",
             "single"

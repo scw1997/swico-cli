@@ -16,9 +16,9 @@ module.exports = function () {
 	spinner.start('Packaging\n');
 	compiler.run((err, stats) => { // [Stats Object](#stats-object)
 		if (err) {
-			spinner.fail((err.stack || err)?.toString());
+			console.error((err.stack || err));
 			if (err.details) {
-				spinner.fail(err.details);
+				console.error(err.details);
 			}
 
 			return;
@@ -26,13 +26,13 @@ module.exports = function () {
 		const info = stats.toJson();
 
 		if (stats.hasErrors()) {
-			spinner.fail(info.errors?.toString());
+			console.error(info.errors);
 
 			return;
 		}
 
 		if (stats.hasWarnings()) {
-			spinner.warn(info.warnings?.toString());
+			console.error(info.warnings);
 
 			return;
 		}
@@ -40,7 +40,7 @@ module.exports = function () {
 
 		compiler.close((closeErr) => {
 			if (closeErr) {
-				spinner.fail(closeErr?.toString());
+				console.error(closeErr);
 
 				return;
 			}
