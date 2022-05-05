@@ -15,6 +15,10 @@ module.exports =async(options)=> {
 			port, //端口
 			client: {
 				progress: true, //显示进度条
+				overlay: {
+					errors: true,
+					warnings: false,
+				},
 			},
 			compress: true, //启动gzip压缩
 			hot: true, //热更新
