@@ -40,7 +40,7 @@ module.exports=({projectPath, entryPath, templatePath})=>({
 								loader: 'css-loader',
 								options: {
 									modules: {
-										localIdentName: 'moduleStyle_[contenthash:8]',
+										localIdentName: 'moduleStyle_[name]_[contenthash:8]',
 									},
 
 								},
@@ -88,7 +88,7 @@ module.exports=({projectPath, entryPath, templatePath})=>({
 								loader: 'css-loader',
 								options: {
 									modules: {
-										localIdentName: 'moduleStyle_[contenthash:8]',
+										localIdentName: 'moduleStyle_[name]_[contenthash:8]',
 									},
 								},
 							},

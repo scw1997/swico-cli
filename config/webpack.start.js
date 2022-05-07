@@ -9,9 +9,11 @@ module.exports =async(options)=> {
 
 	return {
 		...commonConfig,
+		watch: true,
 		watchOptions: {
 			aggregateTimeout: 600,
 			ignored: path.join(projectPath, './node_modules'),
+			poll: 1000, // 每秒检查一次变动
 		},
 		mode: 'development',
 		devtool: 'eval-cheap-module-source-map', // development
@@ -21,6 +23,7 @@ module.exports =async(options)=> {
 			port, //端口
 			client: {
 				progress: true, //显示进度条
+				//警告不会显示页面
 				overlay: {
 					errors: true,
 					warnings: false,
