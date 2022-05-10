@@ -12,6 +12,8 @@ module.exports = (options)=> {
 		mode: 'production',
 		devtool: 'nosources-source-map', // production
 		optimization: {
+			//减少 entry chunk 体积，提高性能。
+			runtimeChunk: true,
 			minimizer: [
 				//压缩css
 				new CssMinimizerPlugin({
@@ -22,6 +24,21 @@ module.exports = (options)=> {
 
 				}),
 			],
+			splitChunks: {
+				// include all types of chunks
+				chunks: 'all',
+				// 重复打包问题
+				cacheGroups:{
+					vendors:{ // node_modules里的代码
+						test: /[\\/]node_modules[\\/]/,
+						chunks: "all",
+						// name: 'vendors', //一定不要定义固定的name
+						priority: 10, // 优先级
+						enforce: true
+					}
+				}
+			},
+
 		},
 		plugins: [
 			...commonConfig.plugins,
@@ -41,5 +58,6 @@ module.exports = (options)=> {
 				logLevel: 'info',
 			}),
 		],
+
 	};
 };

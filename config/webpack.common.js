@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const chalk = require('chalk')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 module.exports=({projectPath, entryPath, templatePath})=>({
 	//入口文件路径，必须为js
@@ -40,7 +42,7 @@ module.exports=({projectPath, entryPath, templatePath})=>({
 								loader: 'css-loader',
 								options: {
 									modules: {
-										localIdentName: 'moduleStyle_[name]_[contenthash:8]',
+										localIdentName: 'moduleStyle_[local]_[contenthash:8]',
 									},
 
 								},
@@ -88,7 +90,7 @@ module.exports=({projectPath, entryPath, templatePath})=>({
 								loader: 'css-loader',
 								options: {
 									modules: {
-										localIdentName: 'moduleStyle_[name]_[contenthash:8]',
+										localIdentName: 'moduleStyle_[local]_[contenthash:8]',
 									},
 								},
 							},
@@ -178,6 +180,11 @@ module.exports=({projectPath, entryPath, templatePath})=>({
 
 		new MiniCssExtractPlugin({
 			filename: '[contenthash].[name].css',
+		}),
+
+		// 进度条
+		new ProgressBarPlugin({
+			format: `  :msg [:bar] ${chalk.green.bold(':percent')} (:elapsed s)`,
 		}),
 
 
