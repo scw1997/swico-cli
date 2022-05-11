@@ -53,7 +53,7 @@ module.exports = (options)=> {
 				reportFilename: 'report.html',
 				defaultSizes: 'parsed',
 				openAnalyzer: true,
-				generateStatsFile: ANALYZE === 'true',
+				generateStatsFile: ANALYZE === 'true', //非anlayze模式的打包不生成分析文件
 				statsFilename: 'analyze.json',
 				statsOptions: null,
 				logLevel: 'info',
