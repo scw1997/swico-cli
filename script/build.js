@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const getBuildConfig = require('../config/webpack.build.js');
 const {getProjectConfig} = require('../utils/tools');
 const projectConfig = getProjectConfig();
-const spinner = require('ora')();
+const chalk = require('chalk');
 
 //支持直接引入ts或es6模块
 require('ts-node/register');
@@ -13,12 +13,12 @@ module.exports = function () {
 	const buildConfig = getBuildConfig({entryPath, templatePath, projectPath});
 	const compiler = webpack(buildConfig);
 
-	spinner.start('Packaging\n');
 	compiler.run((err, stats) => { // [Stats Object](#stats-object)
 		if (err) {
-			console.error((err.stack || err));
+			console.log(`- ${chalk.red.bold(err.stack||err)} \n`);
 			if (err.details) {
-				console.error(err.details);
+
+				console.log(`- ${chalk.red.bold(err.details.toString())} \n`);
 			}
 
 			return;
@@ -26,26 +26,33 @@ module.exports = function () {
 		const info = stats.toJson();
 
 		if (stats.hasErrors()) {
-			console.error(info.errors);
+
+			console.log(`- ${chalk.bold('There are some errors：')} \n`);
+
+			info.errors.forEach(item=>{
+				console.log(`- ${chalk.red.bold(item.message)} \n`);
+			});
 
 			return;
 		}
 
 		if (stats.hasWarnings()) {
-			console.error(info.warnings);
+			console.log(`- ${chalk.bold('There are some warnings：')} \n`);
 
-			return;
+			info.warnings.forEach(item=>{
+				console.log(`- ${chalk.green.bold(item.message)} \n`);
+			});
+
 		}
 
 
 		compiler.close((closeErr) => {
 			if (closeErr) {
-				console.error(closeErr);
+				console.log(`- ${chalk.bold('There are some errors：')} \n`);
 
-				return;
+				console.log(`- ${chalk.red.bold(closeErr.toString())} \n`);
+
 			}
-
-			spinner.succeed('Packaging complete');
 
 		});
 	});

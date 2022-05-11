@@ -28,16 +28,17 @@ module.exports = (options)=> {
 				// include all types of chunks
 				chunks: 'all',
 				// 重复打包问题
-				cacheGroups:{
-					vendors:{ // node_modules里的代码
+				cacheGroups: {
+					vendors: { // node_modules里的代码
 						test: /[\\/]node_modules[\\/]/,
-						chunks: "all",
+						chunks: 'all',
 						// name: 'vendors', //一定不要定义固定的name
 						priority: 10, // 优先级
-						enforce: true
-					}
-				}
+						enforce: true,
+					},
+				},
 			},
+
 
 		},
 		plugins: [
@@ -52,7 +53,7 @@ module.exports = (options)=> {
 				reportFilename: 'report.html',
 				defaultSizes: 'parsed',
 				openAnalyzer: true,
-				generateStatsFile: true,
+				generateStatsFile: ANALYZE === 'true',
 				statsFilename: 'analyze.json',
 				statsOptions: null,
 				logLevel: 'info',

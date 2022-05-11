@@ -1,8 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const chalk = require('chalk')
-const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const chalk = require('chalk');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+
 
 module.exports=({projectPath, entryPath, templatePath})=>({
 	//入口文件路径，必须为js
@@ -10,7 +11,7 @@ module.exports=({projectPath, entryPath, templatePath})=>({
 	//打包后文件路径
 	output: {
 		path: path.resolve(projectPath, './dist'),
-		filename: '[chunkhash].[name].js',
+		filename: 'js/[chunkhash].[name].js',
 		// 静态文件打包后的路径及文件名（默认是走全局的，如果有独立的设置就按照自己独立的设置来。）
 		assetModuleFilename: 'assets/[name]_[chunkhash][ext]',
 	},
@@ -179,12 +180,13 @@ module.exports=({projectPath, entryPath, templatePath})=>({
 
 
 		new MiniCssExtractPlugin({
-			filename: '[contenthash].[name].css',
+			filename: 'css/[contenthash].[name].css',
 		}),
 
 		// 进度条
 		new ProgressBarPlugin({
-			format: `  :msg [:bar] ${chalk.green.bold(':percent')} (:elapsed s)`,
+			format: `building [:bar] ${chalk.green.bold(':percent')} (:elapsed s)`,
+			clear: false,
 		}),
 
 
