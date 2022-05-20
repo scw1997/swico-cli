@@ -37,7 +37,7 @@ const getProjectConfig = ()=>{
 		common: path.resolve(configDir, './config.ts'),
 	};
 
-	const kevalConfig = {
+	const cliConfig = {
 		dev: null,
 		prd: null,
 		common: null,
@@ -52,7 +52,7 @@ const getProjectConfig = ()=>{
 		if (exists) {
 			const curtCfgData = require(configPath[key]);
 
-			kevalConfig[key] = curtCfgData;
+			cliConfig[key] = curtCfgData;
 		}
 	});
 	//webpack入口文件
@@ -64,7 +64,7 @@ const getProjectConfig = ()=>{
 		projectPath: cwd,
 		entryPath,
 		templatePath,
-		kevalConfig,
+		cliConfig,
 	};
 };
 

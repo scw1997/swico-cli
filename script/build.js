@@ -9,8 +9,8 @@ require('ts-node/register');
 
 // 执行start本地启动
 module.exports = function () {
-	const {entryPath, templatePath, projectPath} = projectConfig;
-	const buildConfig = getBuildConfig({entryPath, templatePath, projectPath});
+	const {entryPath, templatePath, projectPath, cliConfig} = projectConfig;
+	const buildConfig = getBuildConfig({entryPath, templatePath, projectPath, cliConfig});
 	const compiler = webpack(buildConfig);
 
 	compiler.run((err, stats) => { // [Stats Object](#stats-object)

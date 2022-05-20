@@ -10,8 +10,8 @@ require('ts-node/register');
 
 // 执行start本地启动
 module.exports = async function () {
-	const {entryPath, templatePath, projectPath} = projectConfig;
-	const startConfig = await getStartConfig({entryPath, templatePath, projectPath});
+	const {entryPath, templatePath, projectPath, cliConfig} = projectConfig;
+	const startConfig = await getStartConfig({entryPath, templatePath, projectPath, cliConfig});
 	const compiler = webpack(startConfig);
 	//启动服务
 	const devServer = new WebpackDevServer(startConfig.devServer, compiler);
