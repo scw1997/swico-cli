@@ -6,9 +6,12 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 
 module.exports=({projectPath, entryPath, templatePath, cliConfig={}})=>{
+
 	const {common: extraCommonConfig} = cliConfig;
-	// const {publicPath} = extraCommonConfig || {};
-	
+	const {publicPath} = extraCommonConfig || {};
+
+	console.log('publicPath', publicPath);
+
 return {
 
 		//入口文件路径，必须为js
@@ -19,6 +22,7 @@ return {
 			filename: 'js/[chunkhash].[name].js',
 			// 静态文件打包后的路径及文件名（默认是走全局的，如果有独立的设置就按照自己独立的设置来。）
 			assetModuleFilename: 'assets/[name]_[chunkhash][ext]',
+			publicPath: publicPath||undefined,
 		},
 		cache: {
 			type: 'filesystem', // 使用文件缓存
@@ -193,7 +197,7 @@ return {
 
 			// 进度条
 			new ProgressBarPlugin({
-				format: `building [:bar] ${chalk.green.bold(':percent')} (:elapsed s)`,
+				format: `building [:bar] ${chalk.yellow.bold(':percent')} (:elapsed s)`,
 				clear: false,
 			}),
 

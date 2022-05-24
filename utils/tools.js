@@ -1,8 +1,11 @@
 const spinner = require('ora')();
 const downGit = require('download-git-repo');
-const fs = require('fs-extra');
+const fs = require('fs');
 const path = require('path');
 const portfinder = require('portfinder');
+
+//支持直接引入ts或es6模块
+require('ts-node/register');
 
 //创建项目模板
 const downloadTemp = (targetPath)=>{
@@ -32,9 +35,9 @@ const getProjectConfig = ()=>{
 	const configDir = path.resolve(cwd, './config');
 	// 脚手架对应的配置文件信息
 	const configPath = {
-		dev: path.resolve(configDir, './config.dev.ts'),
-		prd: path.resolve(configDir, './config.prd.ts'),
-		common: path.resolve(configDir, './config.ts'),
+		dev: path.resolve(configDir, './secywo.dev.ts'),
+		prd: path.resolve(configDir, './secywo.prd.ts'),
+		common: path.resolve(configDir, './secywo.ts'),
 	};
 
 	const cliConfig = {
@@ -44,17 +47,21 @@ const getProjectConfig = ()=>{
 	};
 	//读取各环境配置文件并写入
 
-	Object.keys(configPath).forEach(async (key)=>{
+
+	Object.keys(configPath).forEach( (key)=>{
+
 		const curCfgPath = configPath[key];
-		const exists = await fs.pathExists(curCfgPath);
+		const exists = fs.existsSync(curCfgPath);
 		//存在则读取
 
 		if (exists) {
-			const curtCfgData = require(configPath[key]);
+			const curtCfgData = require(curCfgPath);
+
 
 			cliConfig[key] = curtCfgData;
 		}
 	});
+
 	//webpack入口文件
 	const entryPath = path.resolve(cwd, './src/index.tsx');
 	//webpack html template

@@ -32,7 +32,6 @@ module.exports = (options)=> {
 				//webpack5默认压缩js，但是用了css-miniizer，需要手动压缩js
 				new TerserPlugin({
 					test: /\.js$/,
-					include: path.resolve(entryPath, './src'),
 				}),
 			],
 			splitChunks: {
