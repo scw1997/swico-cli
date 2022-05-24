@@ -2,9 +2,14 @@ const getCommonConfig = require('./webpack.common.js');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const TerserPlugin = require('terser-webpack-plugin');
+const path = require('path');
+
+
 const { ANALYZE } = process.env;
 
 module.exports = (options)=> {
+	const {entryPath} = options;
 	const commonConfig = getCommonConfig(options);
 
 	return {
@@ -14,6 +19,7 @@ module.exports = (options)=> {
 		optimization: {
 			//减少 entry chunk 体积，提高性能。
 			runtimeChunk: true,
+			minimize: true,
 			minimizer: [
 				//压缩css
 				new CssMinimizerPlugin({
@@ -22,6 +28,11 @@ module.exports = (options)=> {
 						preset: ['advanced'], // cssnano https://cssnano.co/docs/optimisations/
 					},
 
+				}),
+				//webpack5默认压缩js，但是用了css-miniizer，需要手动压缩js
+				new TerserPlugin({
+					test: /\.js$/,
+					include: path.resolve(entryPath, './src'),
 				}),
 			],
 			splitChunks: {

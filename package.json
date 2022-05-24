@@ -1,6 +1,6 @@
 {
   "name": "secywo",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "TypeScript & React Cli",
   "main": "index.js",
   "bin": {
@@ -13,9 +13,7 @@
   },
   "author": "scw",
   "license": "ISC",
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
@@ -28,7 +26,6 @@
     "@commitlint/config-conventional": "^15.0.0",
     "@types/react": "^17.0.27",
     "@types/react-dom": "^17.0.9",
-    "@types/react-router": "^5.1.17",
     "@types/react-router-dom": "^5.3.1",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
@@ -68,6 +65,7 @@
     "prettier": "^2.6.1",
     "progress-bar-webpack-plugin": "^2.1.0",
     "style-loader": "^3.3.0",
+    "terser-webpack-plugin": "^5.3.1",
     "ts-loader": "^9.2.6",
     "ts-node": "^10.7.0",
     "typescript": "^4.4.3",
