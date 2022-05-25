@@ -30,7 +30,7 @@ module.exports = function () {
 			console.log(`- ${chalk.bold('There are some errors：')} \n`);
 
 			info.errors.forEach(item=>{
-				console.log(`- ${chalk.red.bold(item.message)} \n`);
+				console.log(`- ${chalk.red.bold(item.stack)} \n`);
 			});
 
 			return;
@@ -40,7 +40,7 @@ module.exports = function () {
 			console.log(`- ${chalk.bold('There are some warnings：')} \n`);
 
 			info.warnings.forEach(item=>{
-				console.log(`- ${chalk.yellow.bold(item.message)} \n`);
+				console.log(`- ${chalk.yellow.bold(item.stack)} \n`);
 			});
 
 		}

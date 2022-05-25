@@ -10,7 +10,7 @@ module.exports=({projectPath, entryPath, templatePath, cliConfig={}})=>{
 	const {common: extraCommonConfig} = cliConfig;
 	const {publicPath} = extraCommonConfig || {};
 
-	console.log('publicPath', publicPath);
+	// console.log('publicPath', publicPath);
 
 return {
 
@@ -24,6 +24,7 @@ return {
 			assetModuleFilename: 'assets/[name]_[chunkhash][ext]',
 			publicPath: publicPath||undefined,
 		},
+		target: ['web', 'es5'], //webpack5默认生成es6，设置编译打包生成es5代码
 		cache: {
 			type: 'filesystem', // 使用文件缓存
 		},
@@ -197,7 +198,7 @@ return {
 
 			// 进度条
 			new ProgressBarPlugin({
-				format: `building [:bar] ${chalk.yellow.bold(':percent')} (:elapsed s)`,
+				format: `building ${chalk.blue.bold(':bar')} ${chalk.green.bold(':percent')} (:elapsed s)`,
 				clear: false,
 			}),
 
