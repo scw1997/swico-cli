@@ -12,7 +12,7 @@ module.exports =async(options)=> {
 		watch: true,
 		watchOptions: {
 			aggregateTimeout: 600,
-			ignored: path.join(projectPath, './node_modules'),
+			ignored: path.resolve(projectPath, './node_modules'),
 			poll: 1000, // 每秒检查一次变动
 		},
 		mode: 'development',

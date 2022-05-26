@@ -11,7 +11,11 @@ const fs = require('fs');
 const { ANALYZE } = process.env;
 
 module.exports = (options)=> {
-	const {entryPath, projectPath} = options;
+	const {entryPath, projectPath, cliConfig} = options;
+	const {prd={}} = cliConfig;
+	//获取开发者自定义添加的脚手架的plugin配置
+	const {plugins: extralPlugins=[]} = prd;
+
 	const commonConfig = getCommonConfig(options);
 	const plugins = [
 			...commonConfig.plugins,
@@ -31,6 +35,7 @@ module.exports = (options)=> {
 				statsOptions: null,
 				logLevel: 'info',
 			}),
+			...extralPlugins,
 		];
 
 
@@ -74,6 +79,18 @@ module.exports = (options)=> {
 				//webpack5默认压缩js，但是用了css-miniizer，需要手动压缩js
 				new TerserPlugin({
 					test: /\.js$/,
+					terserOptions: {
+						compress: {
+							// eslint-disable-next-line camelcase
+							drop_console: true, //删除console
+							// eslint-disable-next-line camelcase
+							drop_debugger: true, // 删除deubgger语句
+						},
+
+						output: {
+							comments: false, // 删除注释
+						},
+					},
 				}),
 			],
 			splitChunks: {

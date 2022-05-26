@@ -10,7 +10,7 @@ require('ts-node/register');
 //创建项目模板
 const downloadTemp = (targetPath)=>{
 	spinner.start('creating a project template');
-	
+
 return new Promise((resolve, reject) => {
 		downGit('https://gitee.com:fanlaBoy/secywo-template#master', targetPath, {clone: true}, (e)=>{
 			if (e) {
@@ -41,9 +41,9 @@ const getProjectConfig = ()=>{
 	};
 
 	const cliConfig = {
-		dev: null,
-		prd: null,
-		common: null,
+		dev: undefined, //对应公共webpack start配置
+		prd: undefined, //对应webpack build配置
+		common: undefined, //对应公共webpack配置
 	};
 	//读取各环境配置文件并写入
 
