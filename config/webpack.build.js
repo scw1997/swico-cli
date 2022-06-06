@@ -44,7 +44,7 @@ module.exports = (options)=> {
 	const isCopyPathExist = fs.existsSync(copyPath);
 
 	if (isCopyPathExist) {
-		//项目存在该路径则复制文件，否则不操作
+		//项目存在该路径则打包时复制文件，否则不操作
 		plugins.push(
 			new CopyPlugin({
 				patterns: [

@@ -22,7 +22,7 @@ return {
 			filename: 'js/[chunkhash].[name].js',
 			// 静态文件打包后的路径及文件名（默认是走全局的，如果有独立的设置就按照自己独立的设置来。）
 			assetModuleFilename: 'assets/[name]_[chunkhash][ext]',
-			publicPath: publicPath||undefined,
+			publicPath: publicPath||'/',
 		},
 		target: ['web', 'es5'], //webpack5默认生成es6，设置编译打包生成es5代码
 		cache: {
@@ -51,7 +51,7 @@ return {
 						{
 							test: /\.module\.css$/,
 							use: [
-								'style-loader',
+								MiniCssExtractPlugin.loader,
 								{
 									loader: 'css-loader',
 									options: {
@@ -99,7 +99,7 @@ return {
 							test: /\.module\.less$/,
 
 							use: [
-								'style-loader',
+								MiniCssExtractPlugin.loader,
 								{
 									loader: 'css-loader',
 									options: {
