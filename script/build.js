@@ -1,6 +1,6 @@
 const webpack = require('webpack');
-const getBuildConfig = require('../config/webpack.build.js');
-const {getProjectConfig} = require('../utils/tools');
+const getBuildConfig = require('../config/webpack.build');
+const { getProjectConfig } = require('../utils/tools');
 const projectConfig = getProjectConfig();
 const chalk = require('chalk');
 
@@ -9,55 +9,46 @@ require('ts-node/register');
 
 // 执行start本地启动
 module.exports = function () {
-	const {entryPath, templatePath, projectPath, cliConfig} = projectConfig;
-	const buildConfig = getBuildConfig({entryPath, templatePath, projectPath, cliConfig});
-	const compiler = webpack(buildConfig);
+    const { entryPath, templatePath, projectPath, cliConfig } = projectConfig;
+    const buildConfig = getBuildConfig({ entryPath, templatePath, projectPath, cliConfig });
+    const compiler = webpack(buildConfig);
 
-	compiler.run((err, stats) => { // [Stats Object](#stats-object)
-		if (err) {
-			console.log(`- ${chalk.red.bold(err.stack||err)} \n`);
-			if (err.details) {
+    compiler.run((err, stats) => {
+        // [Stats Object](#stats-object)
+        if (err) {
+            console.log(`- ${chalk.red.bold(err.stack || err)} \n`);
+            if (err.details) {
+                console.log(`- ${chalk.red.bold(err.details.toString())} \n`);
+            }
 
-				console.log(`- ${chalk.red.bold(err.details.toString())} \n`);
-			}
+            return;
+        }
+        const info = stats.toJson();
 
-			return;
-		}
-		const info = stats.toJson();
+        if (stats.hasErrors()) {
+            console.log(`- ${chalk.bold('There are some errors：')} \n`);
 
-		if (stats.hasErrors()) {
+            info.errors.forEach((item) => {
+                console.log(`- ${chalk.red.bold(item.stack)} \n`);
+            });
 
-			console.log(`- ${chalk.bold('There are some errors：')} \n`);
+            return;
+        }
 
-			info.errors.forEach(item=>{
-				console.log(`- ${chalk.red.bold(item.stack)} \n`);
-			});
+        if (stats.hasWarnings()) {
+            console.log(`- ${chalk.bold('There are some warnings：')} \n`);
 
-			return;
-		}
+            info.warnings.forEach((item) => {
+                console.log(`- ${chalk.yellow.bold(item.stack)} \n`);
+            });
+        }
 
-		if (stats.hasWarnings()) {
-			console.log(`- ${chalk.bold('There are some warnings：')} \n`);
+        compiler.close((closeErr) => {
+            if (closeErr) {
+                console.log(`- ${chalk.bold('There are some errors：')} \n`);
 
-			info.warnings.forEach(item=>{
-				console.log(`- ${chalk.yellow.bold(item.stack)} \n`);
-			});
-
-		}
-
-
-		compiler.close((closeErr) => {
-			if (closeErr) {
-				console.log(`- ${chalk.bold('There are some errors：')} \n`);
-
-				console.log(`- ${chalk.red.bold(closeErr.toString())} \n`);
-
-			}
-
-		});
-
-
-	});
-
-
+                console.log(`- ${chalk.red.bold(closeErr.toString())} \n`);
+            }
+        });
+    });
 };
