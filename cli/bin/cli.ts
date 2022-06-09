@@ -11,7 +11,7 @@ import chalk from 'chalk';
 import createApp from '../script/create';
 import start from '../script/start';
 import build from '../script/build';
-import packageJson from '../package.json';
+import packageJson from '../../package.json';
 
 //创建secywo项目
 program
