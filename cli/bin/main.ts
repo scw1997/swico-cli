@@ -8,19 +8,18 @@
 import { program } from 'commander';
 import figlet from 'figlet';
 import chalk from 'chalk';
-import createApp from '../script/create';
-import start from '../script/start';
-import build from '../script/build';
+import handleInitApp from '../command/init';
+import handleStartDevServer from '../command/start';
+import handleBuild from '../command/build';
 import packageJson from '../../package.json';
 
-//创建secywo项目
+//初始化secywo项目
 program
-    .command('create <app-name>')
-    .description('create a new project ')
-    .option('-f, --force', 'if the destination folder already exists, it will be overwritten') // 是否强制创建，当文件夹已经存在
+    .command('init')
+    .description('init a new secywo project ')
     .action((name, options) => {
         // 在 create.js 中执行创建任务
-        createApp(name, options);
+        handleInitApp(name, options);
     });
 
 //项目启动开发环境服务
@@ -28,7 +27,7 @@ program
     .command('start')
     .description('start the development environment service')
     .action(() => {
-        start();
+        handleStartDevServer();
     });
 
 //打包构建
@@ -36,15 +35,7 @@ program
     .command('build')
     .description('package to build the output product')
     .action(() => {
-        build();
-    });
-
-//打包构建
-program
-    .command('analyze')
-    .description('visualize size of webpack output files with an interactive zoomable treemap')
-    .action(() => {
-        build();
+        handleBuild();
     });
 
 program.on('--help', () => {

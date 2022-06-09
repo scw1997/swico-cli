@@ -1,20 +1,12 @@
-// const path = require('path');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const chalk = require('chalk');
-// const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import chalk from 'chalk';
 import ProgressBarPlugin from 'progress-bar-webpack-plugin';
+import { ProjectConfigType } from '../utils/tools';
 
-export default function ({ projectPath, entryPath, templatePath, cliConfig = {} }) {
-    const { common: extraCommonConfig } = cliConfig;
-    const { publicPath } = extraCommonConfig || {};
-
-    // console.log('publicPath', publicPath);
+export default function ({ projectPath, entryPath, templatePath, cliConfig }: ProjectConfigType) {
+    const { publicPath } = cliConfig.common || {};
 
     return {
         //入口文件路径，必须为js

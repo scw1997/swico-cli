@@ -6,14 +6,15 @@ import TerserPlugin from 'terser-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import path from 'path';
 import fs from 'fs';
+import { ProjectConfigType } from '../utils/tools';
 const { BundleAnalyzerPlugin } = BundleAnalyzer.BundleAnalyzerPlugin;
 const { ANALYZE } = process.env;
 
-const getBuildConfig = (options) => {
-    const { entryPath, projectPath, cliConfig } = options;
-    const { prd = {} } = cliConfig;
+const getBuildConfig = (options: ProjectConfigType) => {
+    const { projectPath, cliConfig } = options;
+
     //获取开发者自定义添加的脚手架的plugin配置
-    const { plugins: extralPlugins = [] } = prd;
+    const { plugins: extralPlugins = [] } = cliConfig.prd || {};
 
     const commonConfig = getCommonConfig(options);
     const plugins = [

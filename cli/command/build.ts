@@ -1,25 +1,21 @@
-const webpack = require('webpack');
-const getBuildConfig = require('../config/webpack.build');
-const { getProjectConfig } = require('../utils/tools');
-const projectConfig = getProjectConfig();
-const chalk = require('chalk');
-
+import webpack from 'webpack';
+import getBuildConfig from '../config/webpack.build';
+import { getProjectConfig } from '../utils/tools';
+import chalk from 'chalk';
 //支持直接引入ts或es6模块
-require('ts-node/register');
+import('ts-node/register');
 
 // 执行start本地启动
-module.exports = function () {
+export default async function () {
+    const projectConfig = await getProjectConfig();
     const { entryPath, templatePath, projectPath, cliConfig } = projectConfig;
     const buildConfig = getBuildConfig({ entryPath, templatePath, projectPath, cliConfig });
-    const compiler = webpack(buildConfig);
+    const compiler = webpack(buildConfig as any);
 
     compiler.run((err, stats) => {
         // [Stats Object](#stats-object)
         if (err) {
             console.log(`- ${chalk.red.bold(err.stack || err)} \n`);
-            if (err.details) {
-                console.log(`- ${chalk.red.bold(err.details.toString())} \n`);
-            }
 
             return;
         }
@@ -51,4 +47,4 @@ module.exports = function () {
             }
         });
     });
-};
+}
