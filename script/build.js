@@ -5,6 +5,7 @@ import path, { dirname } from 'path';
 import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import chalk from 'chalk';
 import { fileURLToPath } from 'url';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import('ts-node/register');
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -27,18 +28,18 @@ export default {
                 test: /\.ts$/,
                 exclude: /node_modules/,
                 use: [
-                    // {
-                    //     loader: 'babel-loader',
-                    //     options: {
-                    //         presets: ['@babel/preset-env'],
-                    //         plugins: [
-                    //             '@babel/plugin-transform-runtime',
-                    //             '@babel/plugin-proposal-class-properties'
-                    //         ]
-                    //     }
-                    // },
-                    'ts-loader'
-                    // 'eslint-loader'
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env'],
+                            plugins: [
+                                '@babel/plugin-transform-runtime',
+                                '@babel/plugin-proposal-class-properties'
+                            ]
+                        }
+                    },
+                    'ts-loader',
+                    'eslint-loader'
                 ]
             }
         ]
@@ -50,6 +51,7 @@ export default {
         }
     },
     plugins: [
+        new CleanWebpackPlugin(),
         // 进度条
         new ProgressBarPlugin({
             format: `building ${chalk.blue.bold(':bar')} ${chalk.green.bold(
@@ -58,56 +60,15 @@ export default {
             clear: false
         })
     ],
-    // //控制输出文件大小的警告提示
-    // performance: {
-    //     maxAssetSize: 1000000,
-    //     maxEntrypointSize: 1000000
-    // },
+    //控制输出文件大小的警告提示
+    performance: {
+        maxAssetSize: 1000000,
+        maxEntrypointSize: 1000000
+    },
     mode: 'production',
-    devtool: 'nosources-source-map' // production
-    // optimization: {
-    //     //减少 entry chunk 体积，提高性能。
-    //     runtimeChunk: true
-    //     // minimize: true,
-    //     // minimizer: [
-    //     //     //压缩css
-    //     //     new CssMinimizerPlugin({
-    //     //         parallel: true, // 启动多线程压缩
-    //     //         minimizerOptions: {
-    //     //             preset: 'advanced' // cssnano https://cssnano.co/docs/optimisations/
-    //     //         }
-    //     //     }),
-    //     //     //webpack5默认压缩js，但是用了css-miniizer，需要手动压缩js
-    //     //     new TerserPlugin({
-    //     //         test: /\.js$/,
-    //     //         terserOptions: {
-    //     //             compress: {
-    //     //                 // eslint-disable-next-line camelcase
-    //     //                 drop_console: true, //删除console
-    //     //                 // eslint-disable-next-line camelcase
-    //     //                 drop_debugger: true // 删除deubgger语句
-    //     //             },
-    //     //
-    //     //             output: {
-    //     //                 comments: false // 删除注释
-    //     //             }
-    //     //         }
-    //     //     })
-    //     // ],
-    //     // splitChunks: {
-    //     //     // include all types of chunks
-    //     //     chunks: 'all',
-    //     //     // 重复打包问题
-    //     //     cacheGroups: {
-    //     //         vendors: {
-    //     //             // node_modules里的代码
-    //     //             test: /[\\/]node_modules[\\/]/,
-    //     //             chunks: 'all',
-    //     //             // name: 'vendors', //一定不要定义固定的name
-    //     //             priority: 10, // 优先级
-    //     //             enforce: true
-    //     //         }
-    //     //     }
-    //     // }
-    // }
+    devtool: 'nosources-source-map', // production
+    optimization: {
+        //减少 entry chunk 体积，提高性能。
+        runtimeChunk: true
+    }
 };
