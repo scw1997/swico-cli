@@ -7,15 +7,20 @@ import portFinder from 'portfinder';
 import('ts-node/register');
 const spinner = ora();
 
+interface CliConfigFields{
+    plugins?:any[],
+    publicPath?:string
+}
+
 export interface ProjectConfigType {
     projectPath: string; //项目路径
     entryPath: string; //入口文件路径
     templatePath: string; //html模板文件路径
     cliConfig: {
         //脚手架自定义配置
-        common: Record<string, any>; //公共通用
-        dev: Record<string, any>; //开发环境专用
-        prd: Record<string, any>; //生产环境专用
+        common: CliConfigFields //公共通用
+        dev: CliConfigFields; //开发环境专用
+        prd: CliConfigFields; //生产环境专用
     };
 }
 

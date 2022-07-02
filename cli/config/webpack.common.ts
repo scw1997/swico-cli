@@ -6,7 +6,7 @@ import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import { ProjectConfigType } from '../utils/tools';
 
 export default function ({ projectPath, entryPath, templatePath, cliConfig }: ProjectConfigType) {
-    const { publicPath } = cliConfig.common || {};
+    const { publicPath,plugins } = cliConfig.common || {};
 
     return {
         //入口文件路径，必须为js

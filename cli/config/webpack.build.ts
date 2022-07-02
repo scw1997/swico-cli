@@ -10,7 +10,7 @@ import { ProjectConfigType } from '../utils/tools';
 const { BundleAnalyzerPlugin } = BundleAnalyzer.BundleAnalyzerPlugin;
 const { ANALYZE } = process.env;
 
-const getBuildConfig = (options: ProjectConfigType) => {
+export default function (options: ProjectConfigType){
     const { projectPath, cliConfig } = options;
 
     //获取开发者自定义添加的脚手架的plugin配置
@@ -106,6 +106,4 @@ const getBuildConfig = (options: ProjectConfigType) => {
         },
         plugins
     };
-};
-
-export default getBuildConfig;
+}
