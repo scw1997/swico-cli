@@ -4,21 +4,23 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import BundleAnalyzer from 'webpack-bundle-analyzer';
 import TerserPlugin from 'terser-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import fs from 'fs';
 import { ProjectConfigType } from '../utils/tools';
 const { BundleAnalyzerPlugin } = BundleAnalyzer.BundleAnalyzerPlugin;
 const { ANALYZE } = process.env;
 
-export default function (options: ProjectConfigType){
-    const { projectPath, cliConfig } = options;
+export default function (options: ProjectConfigType) {
+    const { projectPath, cliConfig, templatePath } = options;
 
     //获取开发者自定义添加的脚手架的plugin配置
-    const { plugins: extralPlugins = [] } = cliConfig.prd || {};
+    const custPrdCfg = cliConfig.prd || {};
+    const custCommonCfg = cliConfig.common || {};
 
     const commonConfig = getCommonConfig(options);
     const plugins = [
-        ...commonConfig.plugins,
+        ...commonConfig.plugins.slice(1), //去掉htmlWebpackPlugin配置
         new CleanWebpackPlugin(),
         new CssMinimizerPlugin(),
 
@@ -34,7 +36,22 @@ export default function (options: ProjectConfigType){
             statsOptions: null,
             logLevel: 'info'
         }),
-        ...extralPlugins
+        new HtmlWebpackPlugin({
+            //不使用默认html文件，使用自己定义的html模板并自动引入打包后的js/css
+            template: templatePath,
+            filename: 'index.html', //打包后的文件名
+            minify: {
+                //压缩和简化代码
+                collapseWhitespace: true, //去掉空行和空格
+                removeAttributeQuotes: true //去掉html标签属性的引号
+            },
+            title: custPrdCfg.title ?? custCommonCfg.title ?? 'Secywo App',
+            templateParameters: {
+                routerBase: custPrdCfg.publicPath ?? custCommonCfg.publicPath ?? '/'
+            },
+            hash: true //对html引用的js文件添加hash戳
+        }),
+        ...(custPrdCfg.plugins ?? [])
     ];
 
     //处理public文件夹（静态资源）
@@ -77,7 +94,7 @@ export default function (options: ProjectConfigType){
                     terserOptions: {
                         compress: {
                             // eslint-disable-next-line camelcase
-                            drop_console: true, //删除console
+                            drop_console: custPrdCfg.console === undefined ? false : !console, //删除console
                             // eslint-disable-next-line camelcase
                             drop_debugger: true // 删除deubgger语句
                         },

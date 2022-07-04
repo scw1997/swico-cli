@@ -8,7 +8,6 @@ import handleStartDevServer from '../command/start';
 import handleBuild from '../command/build';
 import packageJson from '../../package.json';
 
-
 // //初始化secywo项目
 program
     .command('init')
@@ -57,6 +56,3 @@ program
 
 // 解析用户执行命令传入参数
 program.parse(process.argv);
-
-
-

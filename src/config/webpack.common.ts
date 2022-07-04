@@ -6,7 +6,8 @@ import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import { ProjectConfigType } from '../utils/tools';
 
 export default function ({ projectPath, entryPath, templatePath, cliConfig }: ProjectConfigType) {
-    const { publicPath,plugins } = cliConfig.common || {};
+    //开发者的自定义配置
+    const custCommonCfg = cliConfig.common || {};
 
     return {
         //入口文件路径，必须为js
@@ -17,7 +18,7 @@ export default function ({ projectPath, entryPath, templatePath, cliConfig }: Pr
             filename: 'js/[chunkhash].[name].js',
             // 静态文件打包后的路径及文件名（默认是走全局的，如果有独立的设置就按照自己独立的设置来。）
             assetModuleFilename: 'assets/[name]_[chunkhash][ext]',
-            publicPath: publicPath || '/'
+            publicPath: custCommonCfg.publicPath || '/'
         },
         target: ['web', 'es5'], //webpack5默认生成es6，设置编译打包生成es5代码
         cache: {
@@ -96,7 +97,7 @@ export default function ({ projectPath, entryPath, templatePath, cliConfig }: Pr
                                         }
                                     }
                                 },
-                                'less-loader',
+
                                 {
                                     loader: 'postcss-loader',
                                     options: {
@@ -104,7 +105,8 @@ export default function ({ projectPath, entryPath, templatePath, cliConfig }: Pr
                                             plugins: [['autoprefixer']]
                                         }
                                     }
-                                }
+                                },
+                                'less-loader'
                             ]
                         },
                         {
@@ -112,7 +114,7 @@ export default function ({ projectPath, entryPath, templatePath, cliConfig }: Pr
                             use: [
                                 MiniCssExtractPlugin.loader,
                                 'css-loader',
-                                'less-loader',
+
                                 {
                                     loader: 'postcss-loader',
                                     options: {
@@ -120,7 +122,8 @@ export default function ({ projectPath, entryPath, templatePath, cliConfig }: Pr
                                             plugins: [['autoprefixer']]
                                         }
                                     }
-                                }
+                                },
+                                'less-loader'
                             ]
                         },
                         {
@@ -167,6 +170,10 @@ export default function ({ projectPath, entryPath, templatePath, cliConfig }: Pr
                     collapseWhitespace: true, //去掉空行和空格
                     removeAttributeQuotes: true //去掉html标签属性的引号
                 },
+                templateParameters: {
+                    routerBase: custCommonCfg.publicPath || '/'
+                },
+                title: custCommonCfg.title || 'Secywo App',
                 hash: true //对html引用的js文件添加hash戳
             }),
 
@@ -180,7 +187,9 @@ export default function ({ projectPath, entryPath, templatePath, cliConfig }: Pr
                     ':percent'
                 )} (:elapsed s)`,
                 clear: false
-            })
+            }),
+
+            ...(custCommonCfg.plugins || [])
         ]
     };
 }

@@ -7,9 +7,11 @@ import portFinder from 'portfinder';
 import('ts-node/register');
 const spinner = ora();
 
-interface CliConfigFields{
-    plugins?:any[],
-    publicPath?:string
+interface CliConfigFields {
+    plugins?: any[];
+    publicPath?: string;
+    title?: string;
+    console?: boolean;
 }
 
 export interface ProjectConfigType {
@@ -18,7 +20,7 @@ export interface ProjectConfigType {
     templatePath: string; //html模板文件路径
     cliConfig: {
         //脚手架自定义配置
-        common: CliConfigFields //公共通用
+        common: CliConfigFields; //公共通用
         dev: CliConfigFields; //开发环境专用
         prd: CliConfigFields; //生产环境专用
     };
@@ -82,7 +84,7 @@ export const getProjectConfig: () => Promise<ProjectConfigType> = async () => {
     //webpack入口文件
     const entryPath = path.resolve(cwd, './src/index.tsx');
     //webpack html template
-    const templatePath = path.resolve(cwd, './src/index.html');
+    const templatePath = path.resolve(cwd, './src/index.ejs');
 
     return {
         projectPath: cwd,
