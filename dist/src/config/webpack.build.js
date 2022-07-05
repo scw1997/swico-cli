@@ -32,7 +32,7 @@ var copy_webpack_plugin_1 = __importDefault(require("copy-webpack-plugin"));
 var html_webpack_plugin_1 = __importDefault(require("html-webpack-plugin"));
 var path_1 = __importDefault(require("path"));
 var fs_1 = __importDefault(require("fs"));
-var BundleAnalyzerPlugin = webpack_bundle_analyzer_1.default.BundleAnalyzerPlugin.BundleAnalyzerPlugin;
+var BundleAnalyzerPlugin = webpack_bundle_analyzer_1.default.BundleAnalyzerPlugin;
 var ANALYZE = process.env.ANALYZE;
 function default_1(options) {
     var _a, _b, _c, _d, _e;

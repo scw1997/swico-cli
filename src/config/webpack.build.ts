@@ -8,7 +8,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import fs from 'fs';
 import { ProjectConfigType } from '../utils/tools';
-const { BundleAnalyzerPlugin } = BundleAnalyzer.BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = BundleAnalyzer.BundleAnalyzerPlugin;
 const { ANALYZE } = process.env;
 
 export default function (options: ProjectConfigType) {
