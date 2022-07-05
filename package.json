@@ -1,6 +1,6 @@
 {
   "name": "secywo",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "TypeScript & React Cli",
   "main": "index.js",
   "bin": {

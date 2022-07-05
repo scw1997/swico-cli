@@ -69,6 +69,11 @@ export default function (options: ProjectConfigType) {
 
     return {
         ...commonConfig,
+        //打包后文件路径
+        output: {
+            ...commonConfig.output,
+            publicPath: custPrdCfg.publicPath ?? custCommonCfg.publicPath ?? '/'
+        },
         //控制输出文件大小的警告提示
         performance: {
             maxAssetSize: 1000000,

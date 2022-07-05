@@ -35,7 +35,7 @@ var fs_1 = __importDefault(require("fs"));
 var BundleAnalyzerPlugin = webpack_bundle_analyzer_1.default.BundleAnalyzerPlugin;
 var ANALYZE = process.env.ANALYZE;
 function default_1(options) {
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d, _e, _f, _g;
     var projectPath = options.projectPath, cliConfig = options.cliConfig, templatePath = options.templatePath;
     //获取开发者自定义添加的脚手架的plugin配置
     var custPrdCfg = cliConfig.prd || {};
@@ -82,6 +82,8 @@ function default_1(options) {
         }));
     }
     return __assign(__assign({}, commonConfig), { 
+        //打包后文件路径
+        output: __assign(__assign({}, commonConfig.output), { publicPath: (_g = (_f = custPrdCfg.publicPath) !== null && _f !== void 0 ? _f : custCommonCfg.publicPath) !== null && _g !== void 0 ? _g : '/' }), 
         //控制输出文件大小的警告提示
         performance: {
             maxAssetSize: 1000000,
