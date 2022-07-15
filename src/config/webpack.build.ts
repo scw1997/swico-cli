@@ -7,7 +7,7 @@ import CopyPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import fs from 'fs';
-import { ProjectConfigType } from '../utils/tools';
+import { initFields, ProjectConfigType } from '../utils/tools';
 const BundleAnalyzerPlugin = BundleAnalyzer.BundleAnalyzerPlugin;
 const { ANALYZE } = process.env;
 
@@ -45,9 +45,10 @@ export default function (options: ProjectConfigType) {
                 collapseWhitespace: true, //去掉空行和空格
                 removeAttributeQuotes: true //去掉html标签属性的引号
             },
-            title: custPrdCfg.title ?? custCommonCfg.title ?? 'Secywo App',
+            title: custPrdCfg.title ?? custCommonCfg.title ?? initFields.title,
             templateParameters: {
-                routerBase: custPrdCfg.publicPath ?? custCommonCfg.publicPath ?? '/'
+                routerBase:
+                    custPrdCfg.publicPath ?? custCommonCfg.publicPath ?? initFields.publicPath
             },
             hash: true //对html引用的js文件添加hash戳
         }),
@@ -72,7 +73,7 @@ export default function (options: ProjectConfigType) {
         //打包后文件路径
         output: {
             ...commonConfig.output,
-            publicPath: custPrdCfg.publicPath ?? custCommonCfg.publicPath ?? '/'
+            publicPath: custPrdCfg.publicPath ?? custCommonCfg.publicPath ?? initFields.publicPath
         },
         //控制输出文件大小的警告提示
         performance: {
@@ -99,7 +100,8 @@ export default function (options: ProjectConfigType) {
                     terserOptions: {
                         compress: {
                             // eslint-disable-next-line camelcase
-                            drop_console: custPrdCfg.console === undefined ? false : !console, //删除console
+                            drop_console:
+                                custPrdCfg.console === undefined ? initFields.console : !console, //删除console
                             // eslint-disable-next-line camelcase
                             drop_debugger: true // 删除deubgger语句
                         },

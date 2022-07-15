@@ -1,5 +1,5 @@
 import { ProjectConfigType } from '../utils/tools';
-export default function (options: ProjectConfigType): Promise<{
+export default function (options: ProjectConfigType, open?: boolean): Promise<{
     output: {
         publicPath: string;
         path: string;

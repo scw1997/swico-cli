@@ -32,6 +32,7 @@ var copy_webpack_plugin_1 = __importDefault(require("copy-webpack-plugin"));
 var html_webpack_plugin_1 = __importDefault(require("html-webpack-plugin"));
 var path_1 = __importDefault(require("path"));
 var fs_1 = __importDefault(require("fs"));
+var tools_1 = require("../utils/tools");
 var BundleAnalyzerPlugin = webpack_bundle_analyzer_1.default.BundleAnalyzerPlugin;
 var ANALYZE = process.env.ANALYZE;
 function default_1(options) {
@@ -65,9 +66,9 @@ function default_1(options) {
                 collapseWhitespace: true,
                 removeAttributeQuotes: true //去掉html标签属性的引号
             },
-            title: (_b = (_a = custPrdCfg.title) !== null && _a !== void 0 ? _a : custCommonCfg.title) !== null && _b !== void 0 ? _b : 'Secywo App',
+            title: (_b = (_a = custPrdCfg.title) !== null && _a !== void 0 ? _a : custCommonCfg.title) !== null && _b !== void 0 ? _b : tools_1.initFields.title,
             templateParameters: {
-                routerBase: (_d = (_c = custPrdCfg.publicPath) !== null && _c !== void 0 ? _c : custCommonCfg.publicPath) !== null && _d !== void 0 ? _d : '/'
+                routerBase: (_d = (_c = custPrdCfg.publicPath) !== null && _c !== void 0 ? _c : custCommonCfg.publicPath) !== null && _d !== void 0 ? _d : tools_1.initFields.publicPath
             },
             hash: true //对html引用的js文件添加hash戳
         })
@@ -83,7 +84,7 @@ function default_1(options) {
     }
     return __assign(__assign({}, commonConfig), { 
         //打包后文件路径
-        output: __assign(__assign({}, commonConfig.output), { publicPath: (_g = (_f = custPrdCfg.publicPath) !== null && _f !== void 0 ? _f : custCommonCfg.publicPath) !== null && _g !== void 0 ? _g : '/' }), 
+        output: __assign(__assign({}, commonConfig.output), { publicPath: (_g = (_f = custPrdCfg.publicPath) !== null && _f !== void 0 ? _f : custCommonCfg.publicPath) !== null && _g !== void 0 ? _g : tools_1.initFields.publicPath }), 
         //控制输出文件大小的警告提示
         performance: {
             maxAssetSize: 1000000,
@@ -106,7 +107,7 @@ function default_1(options) {
                     terserOptions: {
                         compress: {
                             // eslint-disable-next-line camelcase
-                            drop_console: custPrdCfg.console === undefined ? false : !console,
+                            drop_console: custPrdCfg.console === undefined ? tools_1.initFields.console : !console,
                             // eslint-disable-next-line camelcase
                             drop_debugger: true // 删除deubgger语句
                         },

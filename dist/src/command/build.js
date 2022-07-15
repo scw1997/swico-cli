@@ -1,11 +1,7 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -83,27 +79,27 @@ function default_1() {
                     compiler.run(function (err, stats) {
                         // [Stats Object](#stats-object)
                         if (err) {
-                            console.log("- ".concat(chalk_1.default.red.bold(err.stack || err), " \n"));
+                            console.log("- " + chalk_1.default.red.bold(err.stack || err) + " \n");
                             return;
                         }
                         var info = stats.toJson();
                         if (stats.hasErrors()) {
-                            console.log("- ".concat(chalk_1.default.bold('There are some errors：'), " \n"));
+                            console.log("- " + chalk_1.default.bold('There are some errors：') + " \n");
                             info.errors.forEach(function (item) {
-                                console.log("- ".concat(chalk_1.default.red.bold(item.stack), " \n"));
+                                console.log("- " + chalk_1.default.red.bold(item.stack) + " \n");
                             });
                             return;
                         }
                         if (stats.hasWarnings()) {
-                            console.log("- ".concat(chalk_1.default.bold('There are some warnings：'), " \n"));
+                            console.log("- " + chalk_1.default.bold('There are some warnings：') + " \n");
                             info.warnings.forEach(function (item) {
-                                console.log("- ".concat(chalk_1.default.yellow.bold(item.stack), " \n"));
+                                console.log("- " + chalk_1.default.yellow.bold(item.stack) + " \n");
                             });
                         }
                         compiler.close(function (closeErr) {
                             if (closeErr) {
-                                console.log("- ".concat(chalk_1.default.bold('There are some errors：'), " \n"));
-                                console.log("- ".concat(chalk_1.default.red.bold(closeErr.toString()), " \n"));
+                                console.log("- " + chalk_1.default.bold('There are some errors：') + " \n");
+                                console.log("- " + chalk_1.default.red.bold(closeErr.toString()) + " \n");
                             }
                         });
                     });

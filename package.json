@@ -1,6 +1,6 @@
 {
   "name": "secywo",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "TypeScript & React Cli",
   "main": "index.js",
   "bin": {
@@ -71,10 +71,11 @@
     "terser-webpack-plugin": "^5.3.1",
     "ts-loader": "^9.2.6",
     "ts-node": "^10.7.0",
-    "typescript": "^4.4.3",
+    "typescript": "4.4.3",
     "webpack": "^5.58.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.0",
-    "webpack-dev-server": "^4.3.1"
+    "webpack-dev-server": "^4.3.1",
+    "chokidar": "^3.5.3"
   }
 }

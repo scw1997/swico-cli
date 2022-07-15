@@ -44,11 +44,11 @@ commander_1.program.on('--help', function () {
             whitespaceBreak: true
         }));
     // 新增说明信息
-    console.log("\r\nRun ".concat(chalk_1.default.cyan('secywo <command> --help'), " show details\r\n"));
+    console.log("\r\nRun " + chalk_1.default.cyan('secywo <command> --help') + " show details\r\n");
 });
 commander_1.program
     // 配置版本号信息
-    .version("v".concat(package_json_1.default.version))
+    .version("v" + package_json_1.default.version)
     .usage('<command> [option]');
 // 解析用户执行命令传入参数
 commander_1.program.parse(process.argv);

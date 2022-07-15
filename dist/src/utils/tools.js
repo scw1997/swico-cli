@@ -1,11 +1,7 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -62,7 +58,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPort = exports.getProjectConfig = exports.downloadTemp = void 0;
+exports.initFields = exports.getPort = exports.getProjectConfig = exports.downloadTemp = void 0;
 var ora_1 = __importDefault(require("ora"));
 var download_git_repo_1 = __importDefault(require("download-git-repo"));
 var fs_1 = __importDefault(require("fs"));
@@ -144,3 +140,9 @@ var getPort = function () {
     });
 };
 exports.getPort = getPort;
+exports.initFields = {
+    console: false,
+    plugins: [],
+    publicPath: '/',
+    title: 'Secywo App'
+};

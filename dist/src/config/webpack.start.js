@@ -63,7 +63,8 @@ var webpack_common_1 = __importDefault(require("./webpack.common"));
 var tools_1 = require("../utils/tools");
 var html_webpack_plugin_1 = __importDefault(require("html-webpack-plugin"));
 var path_1 = __importDefault(require("path"));
-function default_1(options) {
+var tools_2 = require("../utils/tools");
+function default_1(options, open) {
     var _a, _b, _c, _d, _e, _f, _g;
     return __awaiter(this, void 0, void 0, function () {
         var projectPath, cliConfig, templatePath, commonConfig, port, custDevCfg, custCommonCfg;
@@ -78,14 +79,8 @@ function default_1(options) {
                     custDevCfg = cliConfig.dev || {};
                     custCommonCfg = cliConfig.common || {};
                     return [2 /*return*/, __assign(__assign({}, commonConfig), { 
-                            // watch: true,
-                            // watchOptions: {
-                            //     aggregateTimeout: 600,
-                            //     ignored: path.resolve(projectPath, './node_modules'),
-                            //     poll: 1000 // 每秒检查一次变动
-                            // },
                             //打包后文件路径
-                            output: __assign(__assign({}, commonConfig.output), { publicPath: (_b = (_a = custDevCfg.publicPath) !== null && _a !== void 0 ? _a : custCommonCfg.publicPath) !== null && _b !== void 0 ? _b : '/' }), mode: 'development', devtool: 'eval-cheap-module-source-map', devServer: {
+                            output: __assign(__assign({}, commonConfig.output), { publicPath: (_b = (_a = custDevCfg.publicPath) !== null && _a !== void 0 ? _a : custCommonCfg.publicPath) !== null && _b !== void 0 ? _b : tools_2.initFields.publicPath }), mode: 'development', devtool: 'eval-cheap-module-source-map', devServer: {
                                 //使用HTML5 History API时，index.html可能需要提供页面来代替任何404响应。
                                 historyApiFallback: true,
                                 port: port,
@@ -99,7 +94,7 @@ function default_1(options) {
                                 },
                                 compress: true,
                                 hot: true,
-                                open: true,
+                                open: open !== null && open !== void 0 ? open : true,
                                 static: {
                                     //提供静态文件服务的路径
                                     directory: path_1.default.join(projectPath, './public')
@@ -115,12 +110,12 @@ function default_1(options) {
                                         removeAttributeQuotes: true //去掉html标签属性的引号
                                     },
                                     templateParameters: {
-                                        routerBase: (_d = (_c = custDevCfg.publicPath) !== null && _c !== void 0 ? _c : custCommonCfg.publicPath) !== null && _d !== void 0 ? _d : '/'
+                                        routerBase: (_d = (_c = custDevCfg.publicPath) !== null && _c !== void 0 ? _c : custCommonCfg.publicPath) !== null && _d !== void 0 ? _d : tools_2.initFields.publicPath
                                     },
-                                    title: (_f = (_e = custDevCfg.title) !== null && _e !== void 0 ? _e : custCommonCfg.title) !== null && _f !== void 0 ? _f : 'Secywo App',
+                                    title: (_f = (_e = custDevCfg.title) !== null && _e !== void 0 ? _e : custCommonCfg.title) !== null && _f !== void 0 ? _f : tools_2.initFields.title,
                                     hash: true //对html引用的js文件添加hash戳
                                 })
-                            ], commonConfig.plugins, true), ((_g = custDevCfg.plugins) !== null && _g !== void 0 ? _g : []), true) })];
+                            ], commonConfig.plugins, true), ((_g = custDevCfg.plugins) !== null && _g !== void 0 ? _g : tools_2.initFields.plugins), true) })];
             }
         });
     });

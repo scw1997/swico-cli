@@ -2,8 +2,9 @@ import getCommonConfig from './webpack.common';
 import { getPort, ProjectConfigType } from '../utils/tools';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
+import { initFields } from '../utils/tools';
 
-export default async function (options: ProjectConfigType) {
+export default async function (options: ProjectConfigType, open?: boolean) {
     const { projectPath, cliConfig, templatePath } = options;
     const commonConfig = getCommonConfig(options);
     const port = await getPort();
@@ -13,16 +14,10 @@ export default async function (options: ProjectConfigType) {
 
     return {
         ...commonConfig,
-        // watch: true,
-        // watchOptions: {
-        //     aggregateTimeout: 600,
-        //     ignored: path.resolve(projectPath, './node_modules'),
-        //     poll: 1000 // 每秒检查一次变动
-        // },
         //打包后文件路径
         output: {
             ...commonConfig.output,
-            publicPath: custDevCfg.publicPath ?? custCommonCfg.publicPath ?? '/'
+            publicPath: custDevCfg.publicPath ?? custCommonCfg.publicPath ?? initFields.publicPath
         },
         mode: 'development',
         devtool: 'eval-cheap-module-source-map', // development
@@ -40,7 +35,7 @@ export default async function (options: ProjectConfigType) {
             },
             compress: true, //启动gzip压缩
             hot: true, //热更新
-            open: true, //自动打开浏览器,
+            open: open ?? true, //自动打开浏览器,
             static: {
                 //提供静态文件服务的路径
                 directory: path.join(projectPath, './public')
@@ -57,13 +52,14 @@ export default async function (options: ProjectConfigType) {
                     removeAttributeQuotes: true //去掉html标签属性的引号
                 },
                 templateParameters: {
-                    routerBase: custDevCfg.publicPath ?? custCommonCfg.publicPath ?? '/'
+                    routerBase:
+                        custDevCfg.publicPath ?? custCommonCfg.publicPath ?? initFields.publicPath
                 },
-                title: custDevCfg.title ?? custCommonCfg.title ?? 'Secywo App',
+                title: custDevCfg.title ?? custCommonCfg.title ?? initFields.title,
                 hash: true //对html引用的js文件添加hash戳
             }),
             ...commonConfig.plugins,
-            ...(custDevCfg.plugins ?? [])
+            ...(custDevCfg.plugins ?? initFields.plugins)
         ]
     };
 }

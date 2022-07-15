@@ -101,3 +101,10 @@ export const getPort = () => {
         stopPort: 3333 //
     });
 };
+
+export const initFields: CliConfigFields = {
+    console: false,
+    plugins: [],
+    publicPath: '/',
+    title: 'Secywo App'
+};

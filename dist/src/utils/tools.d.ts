@@ -17,4 +17,5 @@ export interface ProjectConfigType {
 export declare const downloadTemp: (targetPath: string) => Promise<unknown>;
 export declare const getProjectConfig: () => Promise<ProjectConfigType>;
 export declare const getPort: () => Promise<number>;
+export declare const initFields: CliConfigFields;
 export {};

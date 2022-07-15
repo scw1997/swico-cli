@@ -1,11 +1,7 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -67,19 +63,41 @@ var webpack_dev_server_1 = __importDefault(require("webpack-dev-server"));
 var webpack_start_1 = __importDefault(require("../config/webpack.start"));
 var tools_1 = require("../utils/tools");
 var ora_1 = __importDefault(require("ora"));
+var chokidar_1 = __importDefault(require("chokidar"));
+var path_1 = __importDefault(require("path"));
+var chalk_1 = __importDefault(require("chalk"));
 //支持直接引入ts或es6模块
 Promise.resolve().then(function () { return __importStar(require('ts-node/register')); });
 var spinner = (0, ora_1.default)();
+//监听ts全局声明文件和cli config文件修改
+var handleWatch = function (projectPath, devServer) {
+    var typingsWatcher = chokidar_1.default
+        .watch([
+        path_1.default.resolve(projectPath, './src/typings/**/*.ts'),
+        path_1.default.resolve(projectPath, './config/*.ts')
+    ], {
+        interval: 500,
+        binaryInterval: 500
+    })
+        .on('change', function () {
+        console.log("\n" + chalk_1.default.blue.bold('global config changes, restarting server...') + "\n");
+        devServer.stopCallback(function () {
+            typingsWatcher.close();
+            start(false);
+        });
+    });
+};
 // 执行start本地启动
-function default_1() {
+function start(open) {
     return __awaiter(this, void 0, void 0, function () {
-        var projectConfig, startConfig, compiler, devServer;
+        var projectConfig, projectPath, startConfig, compiler, devServer;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, (0, tools_1.getProjectConfig)()];
                 case 1:
                     projectConfig = _a.sent();
-                    return [4 /*yield*/, (0, webpack_start_1.default)(projectConfig)];
+                    projectPath = projectConfig.projectPath;
+                    return [4 /*yield*/, (0, webpack_start_1.default)(projectConfig, open)];
                 case 2:
                     startConfig = _a.sent();
                     compiler = (0, webpack_1.default)(startConfig);
@@ -87,10 +105,11 @@ function default_1() {
                     spinner.start('Starting server...\n');
                     devServer.startCallback(function (err) {
                         if (err) {
-                            spinner.fail("\u51FA\u9519\u4E86:".concat(err.toString()));
+                            spinner.fail("\u51FA\u9519\u4E86:" + err.toString());
                         }
                         else {
-                            spinner.succeed("Successfully started server on http://localhost:".concat(startConfig.devServer.port));
+                            spinner.succeed("Successfully started server on http://localhost:" + startConfig.devServer.port);
+                            handleWatch(projectPath, devServer);
                         }
                     });
                     return [2 /*return*/];
@@ -98,4 +117,4 @@ function default_1() {
         });
     });
 }
-exports.default = default_1;
+exports.default = start;
