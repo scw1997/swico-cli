@@ -7,6 +7,8 @@ import handleInitApp from '../command/init';
 import handleStartDevServer from '../command/start';
 import handleBuild from '../command/build';
 import packageJson from '../../package.json';
+//支持直接引入ts或es6模块
+import('ts-node/register');
 
 // //初始化secywo项目
 program

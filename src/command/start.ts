@@ -6,8 +6,6 @@ import ora from 'ora';
 import chokidar from 'chokidar';
 import path from 'path';
 import chalk from 'chalk';
-//支持直接引入ts或es6模块
-import('ts-node/register');
 
 const spinner = ora();
 

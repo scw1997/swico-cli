@@ -2,8 +2,6 @@ import webpack from 'webpack';
 import getBuildConfig from '../config/webpack.build';
 import { getProjectConfig } from '../utils/tools';
 import chalk from 'chalk';
-//支持直接引入ts或es6模块
-import('ts-node/register');
 
 // 执行start本地启动
 export default async function () {

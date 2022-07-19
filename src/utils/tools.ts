@@ -3,8 +3,7 @@ import downGit from 'download-git-repo';
 import fs from 'fs';
 import path from 'path';
 import portFinder from 'portfinder';
-//支持直接引入ts或es6模块
-import('ts-node/register');
+
 const spinner = ora();
 
 interface CliConfigFields {

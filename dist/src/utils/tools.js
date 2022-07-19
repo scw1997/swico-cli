@@ -64,8 +64,6 @@ var download_git_repo_1 = __importDefault(require("download-git-repo"));
 var fs_1 = __importDefault(require("fs"));
 var path_1 = __importDefault(require("path"));
 var portfinder_1 = __importDefault(require("portfinder"));
-//支持直接引入ts或es6模块
-Promise.resolve().then(function () { return __importStar(require('ts-node/register')); });
 var spinner = (0, ora_1.default)();
 //创建项目模板
 var downloadTemp = function (targetPath) {
