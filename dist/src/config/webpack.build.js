@@ -33,16 +33,19 @@ var html_webpack_plugin_1 = __importDefault(require("html-webpack-plugin"));
 var path_1 = __importDefault(require("path"));
 var fs_1 = __importDefault(require("fs"));
 var tools_1 = require("../utils/tools");
+var webpack_1 = __importDefault(require("webpack"));
 var BundleAnalyzerPlugin = webpack_bundle_analyzer_1.default.BundleAnalyzerPlugin;
 var ANALYZE = process.env.ANALYZE;
 function default_1(options) {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
     var projectPath = options.projectPath, cliConfig = options.cliConfig, templatePath = options.templatePath;
     //获取开发者自定义添加的脚手架的plugin配置
     var custPrdCfg = cliConfig.prd || {};
     var custCommonCfg = cliConfig.common || {};
+    //获取自定义变量
+    var defineVars = __assign(__assign({}, ((_a = custCommonCfg.define) !== null && _a !== void 0 ? _a : {})), ((_b = custPrdCfg.define) !== null && _b !== void 0 ? _b : {}));
     var commonConfig = (0, webpack_common_1.default)(options);
-    var plugins = __spreadArray(__spreadArray(__spreadArray([], commonConfig.plugins.slice(1), true), [
+    var basicPlugins = __spreadArray(__spreadArray([], commonConfig.plugins.slice(1), true), [
         new clean_webpack_plugin_1.CleanWebpackPlugin(),
         new css_minimizer_webpack_plugin_1.default(),
         new BundleAnalyzerPlugin({
@@ -66,25 +69,29 @@ function default_1(options) {
                 collapseWhitespace: true,
                 removeAttributeQuotes: true //去掉html标签属性的引号
             },
-            title: (_b = (_a = custPrdCfg.title) !== null && _a !== void 0 ? _a : custCommonCfg.title) !== null && _b !== void 0 ? _b : tools_1.initFields.title,
+            title: (_d = (_c = custPrdCfg.title) !== null && _c !== void 0 ? _c : custCommonCfg.title) !== null && _d !== void 0 ? _d : tools_1.initFields.title,
             templateParameters: {
-                routerBase: (_d = (_c = custPrdCfg.publicPath) !== null && _c !== void 0 ? _c : custCommonCfg.publicPath) !== null && _d !== void 0 ? _d : tools_1.initFields.publicPath
+                routerBase: (_f = (_e = custPrdCfg.publicPath) !== null && _e !== void 0 ? _e : custCommonCfg.publicPath) !== null && _f !== void 0 ? _f : tools_1.initFields.publicPath
             },
             hash: true //对html引用的js文件添加hash戳
         })
-    ], false), ((_e = custPrdCfg.plugins) !== null && _e !== void 0 ? _e : []), true);
+    ], false);
+    //自定义变量注入配置
+    if (Object.keys(defineVars).length !== 0) {
+        basicPlugins.push(new webpack_1.default.DefinePlugin(__assign({}, defineVars)));
+    }
     //处理public文件夹（静态资源）
     var copyPath = path_1.default.resolve(projectPath, './public');
     var isCopyPathExist = fs_1.default.existsSync(copyPath);
     if (isCopyPathExist) {
         //项目存在该路径则打包时复制文件，否则不操作
-        plugins.push(new copy_webpack_plugin_1.default({
+        basicPlugins.push(new copy_webpack_plugin_1.default({
             patterns: [path_1.default.resolve(projectPath, './public')]
         }));
     }
     return __assign(__assign({}, commonConfig), { 
         //打包后文件路径
-        output: __assign(__assign({}, commonConfig.output), { publicPath: (_g = (_f = custPrdCfg.publicPath) !== null && _f !== void 0 ? _f : custCommonCfg.publicPath) !== null && _g !== void 0 ? _g : tools_1.initFields.publicPath }), 
+        output: __assign(__assign({}, commonConfig.output), { publicPath: (_h = (_g = custPrdCfg.publicPath) !== null && _g !== void 0 ? _g : custCommonCfg.publicPath) !== null && _h !== void 0 ? _h : tools_1.initFields.publicPath }), 
         //控制输出文件大小的警告提示
         performance: {
             maxAssetSize: 1000000,
@@ -132,6 +139,6 @@ function default_1(options) {
                     }
                 }
             }
-        }, plugins: plugins });
+        }, plugins: __spreadArray(__spreadArray([], basicPlugins, true), ((_j = custPrdCfg.plugins) !== null && _j !== void 0 ? _j : []), true) });
 }
 exports.default = default_1;

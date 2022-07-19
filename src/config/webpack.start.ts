@@ -3,6 +3,7 @@ import { getPort, ProjectConfigType } from '../utils/tools';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import { initFields } from '../utils/tools';
+import webpack from 'webpack';
 
 export default async function (options: ProjectConfigType, open?: boolean) {
     const { projectPath, cliConfig, templatePath } = options;
@@ -11,6 +12,34 @@ export default async function (options: ProjectConfigType, open?: boolean) {
     //获取开发者自定义添加的脚手架的plugin配置
     const custDevCfg = cliConfig.dev || {};
     const custCommonCfg = cliConfig.common || {};
+    //获取自定义变量
+    const defineVars = { ...(custCommonCfg.define ?? {}), ...(custDevCfg.define ?? {}) };
+    //basic plugins
+    const basicPlugins: any[] = [
+        new HtmlWebpackPlugin({
+            //不使用默认html文件，使用自己定义的html模板并自动引入打包后的js/css
+            template: templatePath,
+            filename: 'index.html', //打包后的文件名
+            minify: {
+                //压缩和简化代码
+                collapseWhitespace: true, //去掉空行和空格
+                removeAttributeQuotes: true //去掉html标签属性的引号
+            },
+            templateParameters: {
+                routerBase:
+                    custDevCfg.publicPath ?? custCommonCfg.publicPath ?? initFields.publicPath
+            },
+            title: custDevCfg.title ?? custCommonCfg.title ?? initFields.title,
+            hash: true //对html引用的js文件添加hash戳
+        })
+    ];
+    if (Object.keys(defineVars).length !== 0) {
+        basicPlugins.push(
+            new webpack.DefinePlugin({
+                ...defineVars
+            })
+        );
+    }
 
     return {
         ...commonConfig,
@@ -42,22 +71,7 @@ export default async function (options: ProjectConfigType, open?: boolean) {
             }
         },
         plugins: [
-            new HtmlWebpackPlugin({
-                //不使用默认html文件，使用自己定义的html模板并自动引入打包后的js/css
-                template: templatePath,
-                filename: 'index.html', //打包后的文件名
-                minify: {
-                    //压缩和简化代码
-                    collapseWhitespace: true, //去掉空行和空格
-                    removeAttributeQuotes: true //去掉html标签属性的引号
-                },
-                templateParameters: {
-                    routerBase:
-                        custDevCfg.publicPath ?? custCommonCfg.publicPath ?? initFields.publicPath
-                },
-                title: custDevCfg.title ?? custCommonCfg.title ?? initFields.title,
-                hash: true //对html引用的js文件添加hash戳
-            }),
+            ...basicPlugins,
             ...commonConfig.plugins,
             ...(custDevCfg.plugins ?? initFields.plugins)
         ]

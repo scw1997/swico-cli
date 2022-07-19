@@ -8,6 +8,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import fs from 'fs';
 import { initFields, ProjectConfigType } from '../utils/tools';
+import webpack from 'webpack';
 const BundleAnalyzerPlugin = BundleAnalyzer.BundleAnalyzerPlugin;
 const { ANALYZE } = process.env;
 
@@ -17,9 +18,10 @@ export default function (options: ProjectConfigType) {
     //获取开发者自定义添加的脚手架的plugin配置
     const custPrdCfg = cliConfig.prd || {};
     const custCommonCfg = cliConfig.common || {};
-
+    //获取自定义变量
+    const defineVars = { ...(custCommonCfg.define ?? {}), ...(custPrdCfg.define ?? {}) };
     const commonConfig = getCommonConfig(options);
-    const plugins = [
+    const basicPlugins = [
         ...commonConfig.plugins.slice(1), //去掉htmlWebpackPlugin配置
         new CleanWebpackPlugin(),
         new CssMinimizerPlugin(),
@@ -51,9 +53,17 @@ export default function (options: ProjectConfigType) {
                     custPrdCfg.publicPath ?? custCommonCfg.publicPath ?? initFields.publicPath
             },
             hash: true //对html引用的js文件添加hash戳
-        }),
-        ...(custPrdCfg.plugins ?? [])
+        })
     ];
+
+    //自定义变量注入配置
+    if (Object.keys(defineVars).length !== 0) {
+        basicPlugins.push(
+            new webpack.DefinePlugin({
+                ...defineVars
+            })
+        );
+    }
 
     //处理public文件夹（静态资源）
     const copyPath = path.resolve(projectPath, './public');
@@ -61,7 +71,7 @@ export default function (options: ProjectConfigType) {
 
     if (isCopyPathExist) {
         //项目存在该路径则打包时复制文件，否则不操作
-        plugins.push(
+        basicPlugins.push(
             new CopyPlugin({
                 patterns: [path.resolve(projectPath, './public')]
             })
@@ -128,6 +138,6 @@ export default function (options: ProjectConfigType) {
                 }
             }
         },
-        plugins
+        plugins: [...basicPlugins, ...(custPrdCfg.plugins ?? [])]
     };
 }

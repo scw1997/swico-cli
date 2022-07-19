@@ -64,23 +64,45 @@ var tools_1 = require("../utils/tools");
 var html_webpack_plugin_1 = __importDefault(require("html-webpack-plugin"));
 var path_1 = __importDefault(require("path"));
 var tools_2 = require("../utils/tools");
+var webpack_1 = __importDefault(require("webpack"));
 function default_1(options, open) {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
     return __awaiter(this, void 0, void 0, function () {
-        var projectPath, cliConfig, templatePath, commonConfig, port, custDevCfg, custCommonCfg;
-        return __generator(this, function (_h) {
-            switch (_h.label) {
+        var projectPath, cliConfig, templatePath, commonConfig, port, custDevCfg, custCommonCfg, defineVars, basicPlugins;
+        return __generator(this, function (_k) {
+            switch (_k.label) {
                 case 0:
                     projectPath = options.projectPath, cliConfig = options.cliConfig, templatePath = options.templatePath;
                     commonConfig = (0, webpack_common_1.default)(options);
                     return [4 /*yield*/, (0, tools_1.getPort)()];
                 case 1:
-                    port = _h.sent();
+                    port = _k.sent();
                     custDevCfg = cliConfig.dev || {};
                     custCommonCfg = cliConfig.common || {};
+                    defineVars = __assign(__assign({}, ((_a = custCommonCfg.define) !== null && _a !== void 0 ? _a : {})), ((_b = custDevCfg.define) !== null && _b !== void 0 ? _b : {}));
+                    basicPlugins = [
+                        new html_webpack_plugin_1.default({
+                            //不使用默认html文件，使用自己定义的html模板并自动引入打包后的js/css
+                            template: templatePath,
+                            filename: 'index.html',
+                            minify: {
+                                //压缩和简化代码
+                                collapseWhitespace: true,
+                                removeAttributeQuotes: true //去掉html标签属性的引号
+                            },
+                            templateParameters: {
+                                routerBase: (_d = (_c = custDevCfg.publicPath) !== null && _c !== void 0 ? _c : custCommonCfg.publicPath) !== null && _d !== void 0 ? _d : tools_2.initFields.publicPath
+                            },
+                            title: (_f = (_e = custDevCfg.title) !== null && _e !== void 0 ? _e : custCommonCfg.title) !== null && _f !== void 0 ? _f : tools_2.initFields.title,
+                            hash: true //对html引用的js文件添加hash戳
+                        })
+                    ];
+                    if (Object.keys(defineVars).length !== 0) {
+                        basicPlugins.push(new webpack_1.default.DefinePlugin(__assign({}, defineVars)));
+                    }
                     return [2 /*return*/, __assign(__assign({}, commonConfig), { 
                             //打包后文件路径
-                            output: __assign(__assign({}, commonConfig.output), { publicPath: (_b = (_a = custDevCfg.publicPath) !== null && _a !== void 0 ? _a : custCommonCfg.publicPath) !== null && _b !== void 0 ? _b : tools_2.initFields.publicPath }), mode: 'development', devtool: 'eval-cheap-module-source-map', devServer: {
+                            output: __assign(__assign({}, commonConfig.output), { publicPath: (_h = (_g = custDevCfg.publicPath) !== null && _g !== void 0 ? _g : custCommonCfg.publicPath) !== null && _h !== void 0 ? _h : tools_2.initFields.publicPath }), mode: 'development', devtool: 'eval-cheap-module-source-map', devServer: {
                                 //使用HTML5 History API时，index.html可能需要提供页面来代替任何404响应。
                                 historyApiFallback: true,
                                 port: port,
@@ -99,23 +121,7 @@ function default_1(options, open) {
                                     //提供静态文件服务的路径
                                     directory: path_1.default.join(projectPath, './public')
                                 }
-                            }, plugins: __spreadArray(__spreadArray([
-                                new html_webpack_plugin_1.default({
-                                    //不使用默认html文件，使用自己定义的html模板并自动引入打包后的js/css
-                                    template: templatePath,
-                                    filename: 'index.html',
-                                    minify: {
-                                        //压缩和简化代码
-                                        collapseWhitespace: true,
-                                        removeAttributeQuotes: true //去掉html标签属性的引号
-                                    },
-                                    templateParameters: {
-                                        routerBase: (_d = (_c = custDevCfg.publicPath) !== null && _c !== void 0 ? _c : custCommonCfg.publicPath) !== null && _d !== void 0 ? _d : tools_2.initFields.publicPath
-                                    },
-                                    title: (_f = (_e = custDevCfg.title) !== null && _e !== void 0 ? _e : custCommonCfg.title) !== null && _f !== void 0 ? _f : tools_2.initFields.title,
-                                    hash: true //对html引用的js文件添加hash戳
-                                })
-                            ], commonConfig.plugins, true), ((_g = custDevCfg.plugins) !== null && _g !== void 0 ? _g : tools_2.initFields.plugins), true) })];
+                            }, plugins: __spreadArray(__spreadArray(__spreadArray([], basicPlugins, true), commonConfig.plugins, true), ((_j = custDevCfg.plugins) !== null && _j !== void 0 ? _j : tools_2.initFields.plugins), true) })];
             }
         });
     });

@@ -1,6 +1,6 @@
 {
   "name": "secywo",
-  "version": "0.3.7",
+  "version": "0.4.0",
   "description": "TypeScript & React Cli",
   "main": "index.js",
   "bin": {
@@ -13,7 +13,6 @@
     "type": "git",
     "url": "https://gitee.com/fanlaBoy/secywo.git"
   },
-
   "author": "scw",
   "license": "ISC",
   "dependencies": {},

@@ -11,6 +11,7 @@ interface CliConfigFields {
     publicPath?: string;
     title?: string;
     console?: boolean;
+    define?: Record<string, any>;
 }
 
 export interface ProjectConfigType {
