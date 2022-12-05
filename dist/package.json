@@ -1,10 +1,10 @@
 {
     "name": "secywo",
-    "version": "0.4.4",
+    "version": "0.4.10",
     "description": "TypeScript & React Cli",
     "main": "index.js",
     "bin": {
-        "secywo": "./dist/src/bin/main.js"
+        "secywo": "./src/bin/main.js"
     },
     "scripts": {
         "compileToJs": "tsc"
@@ -15,8 +15,7 @@
     },
     "author": "scw",
     "license": "ISC",
-    "dependencies": {},
-    "devDependencies": {
+    "dependencies": {
         "@babel/core": "^7.15.5",
         "@babel/plugin-proposal-class-properties": "^7.14.5",
         "@babel/plugin-proposal-decorators": "^7.17.9",
@@ -77,5 +76,6 @@
         "webpack-cli": "^4.9.0",
         "webpack-dev-server": "^4.3.1",
         "chokidar": "^3.5.3"
-    }
+    },
+    "devDependencies": {}
 }
