@@ -1,2 +1,7 @@
+/cli/node_modules/
+/cli/dist/
+/main/node_modules/
+/main/dist/
 /node_modules/
+/dist/
 /.idea/
