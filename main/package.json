@@ -4,7 +4,7 @@
   "description": "secywo template cli",
   "main": "index.js",
   "bin": {
-    "secywo": "./src/bin/main.js"
+    "secywo": "./src/bin.js"
   },
   "scripts": {
     "compileToJs": "tsc"
@@ -40,7 +40,6 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.3.0",
     "css-minimizer-webpack-plugin": "^3.1.1",
-    "download-git-repo": "^3.0.2",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-loader": "^4.0.2",
@@ -49,7 +48,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "figlet": "^1.5.2",
     "fs-extra": "^10.0.1",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.2",
@@ -75,6 +73,5 @@
     "webpack-dev-server": "^4.3.1",
     "chokidar": "^3.5.3"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

@@ -1,10 +1,8 @@
 #! /usr/bin/env node
 
 import { program } from 'commander';
-
-import chalk from 'chalk';
-import handleStartDevServer from '../command/start';
-import handleBuild from '../command/build';
+import handleStartDevServer from './command/start';
+import handleBuild from './command/build';
 
 //支持直接引入ts或es6模块
 import('ts-node/register');

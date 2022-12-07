@@ -1,5 +1,4 @@
 import ora from 'ora';
-import downGit from 'download-git-repo';
 import fs from 'fs';
 import path from 'path';
 import portFinder from 'portfinder';
@@ -25,29 +24,6 @@ export interface ProjectConfigType {
         prd: CliConfigFields; //生产环境专用
     };
 }
-
-//创建项目模板
-export const downloadTemp = (targetPath: string) => {
-    spinner.start('creating a project template');
-
-    return new Promise((resolve, reject) => {
-        downGit(
-            'https://gitee.com:fanlaBoy/secywo-template#master',
-            targetPath,
-            { clone: true },
-            (e) => {
-                if (e) {
-                    const err = e.toString();
-                    spinner.fail(err);
-                    reject(err);
-                } else {
-                    resolve(null);
-                    spinner.succeed('Successfully created');
-                }
-            }
-        );
-    });
-};
 
 //获取开发者的自定义项目配置和相关参数
 export const getProjectConfig: () => Promise<ProjectConfigType> = async () => {

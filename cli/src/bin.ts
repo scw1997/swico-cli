@@ -5,7 +5,6 @@ import { program } from 'commander';
 import handleInitApp from './command/create';
 import packageJson from '../package.json';
 import chalk from 'chalk';
-import figlet from 'figlet';
 import { logoText } from './utils/tools';
 
 program
@@ -26,7 +25,6 @@ program.on('--help', () => {
 });
 
 program
-
     .option('-v, -V', 'display the CLI version') // 是否强制创建，当文件夹已经存在
     .action(() => {
         // 拉取内置模板创建项目
