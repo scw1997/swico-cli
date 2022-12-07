@@ -1,5 +1,5 @@
 {
-  "name": "secywo",
+  "name": "secywo-cli",
   "version": "0.4.10",
   "description": "secywo template cli",
   "main": "index.js",

@@ -2,10 +2,11 @@
 
 // //初始化secywo项目
 import { program } from 'commander';
-import handleInitApp from './command/init';
+import handleInitApp from './command/create';
 import packageJson from '../package.json';
 import chalk from 'chalk';
 import figlet from 'figlet';
+import { logoText } from './utils/tools';
 
 program
     .command('create <project-name>')
@@ -18,16 +19,7 @@ program
 
 program.on('--help', () => {
     // 使用 figlet 绘制 Logo
-    console.log(
-        '\r\n' +
-            figlet.textSync('secywo', {
-                font: 'Ghost',
-                horizontalLayout: 'default',
-                verticalLayout: 'default',
-                width: 80,
-                whitespaceBreak: true
-            })
-    );
+    console.log(logoText);
 
     // 新增说明信息
     console.log(`\r\nRun ${chalk.cyan('secywo <command> --help')} show details\r\n`);
