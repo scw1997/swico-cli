@@ -1,6 +1,6 @@
-/cli/node_modules/
-/cli/dist/
-/main/node_modules/
-/main/dist/
+/global/node_modules/
+/global/dist/
+/template/node_modules/
+/template/dist/
 /node_modules/
 /.idea/

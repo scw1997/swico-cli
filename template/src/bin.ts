@@ -1,5 +1,6 @@
 #! /usr/bin/env node
 
+// //初始化secywo项目
 import { program } from 'commander';
 import handleStartDevServer from './command/start';
 import handleBuild from './command/build';
