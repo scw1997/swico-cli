@@ -1,6 +1,6 @@
 {
   "name": "secywo",
-  "version": "0.5.3",
+  "version": "0.5.6",
   "description": "An independently developed front-end project scaffolding based on Typescript + React + Webpack",
   "main": "index.js",
   "keywords": [
@@ -15,7 +15,8 @@
     "secywo": "./src/bin.js"
   },
   "scripts": {
-    "compileToJs": "tsc"
+    "compileToJs": "tsc",
+    "publishReal": "npm run compileToJs & cd ./dist & npm publish"
   },
   "repository": {
     "type": "git",

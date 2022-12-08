@@ -1,6 +1,6 @@
 {
   "name": "secywo-template-cli",
-  "version": "0.5.0",
+  "version": "0.5.3",
   "description": "secywo template cli",
   "main": "index.js",
   "keywords": [
@@ -16,7 +16,8 @@
     "secywo": "./src/bin.js"
   },
   "scripts": {
-    "compileToJs": "tsc"
+    "compileToJs": "tsc",
+    "publishReal": "npm run compileToJs & cd ./dist & npm publish"
   },
   "repository": {
     "type": "git",
