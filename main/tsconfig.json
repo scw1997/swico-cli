@@ -18,7 +18,8 @@
     "baseUrl": "./",
     "resolveJsonModule": true,
     "outDir": "./dist",
-    "declaration": true
+    "declaration": true,
+    "types": ["node"]
   },
   "include": [
     "src"

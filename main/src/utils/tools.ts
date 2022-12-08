@@ -1,9 +1,6 @@
-import ora from 'ora';
 import fs from 'fs';
 import path from 'path';
 import portFinder from 'portfinder';
-
-const spinner = ora();
 
 interface CliConfigFields {
     plugins?: any[];
@@ -78,8 +75,9 @@ export const getPort = () => {
     });
 };
 
+//部分webpack配置项的初始默认值
 export const initFields: CliConfigFields = {
-    console: false,
+    console: false, //生产环境是否去掉console打印信息
     plugins: [],
     publicPath: '/',
     title: 'Secywo App'

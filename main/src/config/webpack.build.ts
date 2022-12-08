@@ -9,6 +9,7 @@ import path from 'path';
 import fs from 'fs';
 import { initFields, ProjectConfigType } from '../utils/tools';
 import webpack from 'webpack';
+
 const BundleAnalyzerPlugin = BundleAnalyzer.BundleAnalyzerPlugin;
 const { ANALYZE } = process.env;
 
@@ -16,13 +17,14 @@ export default function (options: ProjectConfigType) {
     const { projectPath, cliConfig, templatePath } = options;
 
     //获取开发者自定义添加的脚手架的plugin配置
-    const custPrdCfg = cliConfig.prd || {};
-    const custCommonCfg = cliConfig.common || {};
+    const custPrdConfig = cliConfig.prd || {};
+    const custCommonConfig = cliConfig.common || {};
     //获取自定义变量
-    const defineVars = { ...(custCommonCfg.define ?? {}), ...(custPrdCfg.define ?? {}) };
+    const defineVars = { ...(custCommonConfig.define ?? {}), ...(custPrdConfig.define ?? {}) };
     const commonConfig = getCommonConfig(options);
+    //默认plugin配置
     const basicPlugins = [
-        ...commonConfig.plugins.slice(1), //去掉htmlWebpackPlugin配置
+        ...commonConfig.plugins.slice(1), //覆盖通用配置中的htmlWebpackPlugin配置
         new CleanWebpackPlugin(),
         new CssMinimizerPlugin(),
 
@@ -47,10 +49,10 @@ export default function (options: ProjectConfigType) {
                 collapseWhitespace: true, //去掉空行和空格
                 removeAttributeQuotes: true //去掉html标签属性的引号
             },
-            title: custPrdCfg.title ?? custCommonCfg.title ?? initFields.title,
+            title: custPrdConfig.title ?? custCommonConfig.title ?? initFields.title,
             templateParameters: {
                 routerBase:
-                    custPrdCfg.publicPath ?? custCommonCfg.publicPath ?? initFields.publicPath
+                    custPrdConfig.publicPath ?? custCommonConfig.publicPath ?? initFields.publicPath
             },
             hash: true //对html引用的js文件添加hash戳
         })
@@ -83,11 +85,12 @@ export default function (options: ProjectConfigType) {
         //打包后文件路径
         output: {
             ...commonConfig.output,
-            publicPath: custPrdCfg.publicPath ?? custCommonCfg.publicPath ?? initFields.publicPath
+            publicPath:
+                custPrdConfig.publicPath ?? custCommonConfig.publicPath ?? initFields.publicPath
         },
-        //控制输出文件大小的警告提示
+        //控制输出文件大小的警告提示，单位字节
         performance: {
-            maxAssetSize: 1000000,
+            maxAssetSize: 300000,
             maxEntrypointSize: 1000000
         },
         mode: 'production',
@@ -111,7 +114,7 @@ export default function (options: ProjectConfigType) {
                         compress: {
                             // eslint-disable-next-line camelcase
                             drop_console:
-                                custPrdCfg.console === undefined ? initFields.console : !console, //删除console
+                                custPrdConfig.console === undefined ? initFields.console : !console, //删除console
                             // eslint-disable-next-line camelcase
                             drop_debugger: true // 删除deubgger语句
                         },
@@ -138,6 +141,6 @@ export default function (options: ProjectConfigType) {
                 }
             }
         },
-        plugins: [...basicPlugins, ...(custPrdCfg.plugins ?? [])]
+        plugins: [...basicPlugins, ...(custPrdConfig.plugins ?? [])]
     };
 }

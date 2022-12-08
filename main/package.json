@@ -1,10 +1,19 @@
 {
   "name": "secywo-cli",
-  "version": "0.4.10",
+  "version": "0.4.11",
   "description": "secywo template cli",
   "main": "index.js",
+  "keywords": [
+    "typescript",
+    "javascript",
+    "ecmascript",
+    "react",
+    "cli",
+    "secywo",
+    "template"
+  ],
   "bin": {
-    "secywo": "./src/bin.js"
+    "secywo-cli": "./src/bin.js"
   },
   "scripts": {
     "compileToJs": "tsc"

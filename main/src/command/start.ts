@@ -23,7 +23,9 @@ const handleWatch = (projectPath, devServer) => {
             }
         )
         .on('change', () => {
-            console.log(`\n${chalk.blue.bold('global config changes, restarting server...')}\n`);
+            console.log(
+                `\n${chalk.blue.bold('Global config changes, restarting the server...')}\n`
+            );
             devServer.stopCallback(() => {
                 typingsWatcher.close();
                 start(false);

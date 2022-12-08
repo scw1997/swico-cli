@@ -1,13 +1,13 @@
 import getCommonConfig from './webpack.common';
-import { getPort, ProjectConfigType } from '../utils/tools';
+import { getPort, initFields, ProjectConfigType } from '../utils/tools';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
-import { initFields } from '../utils/tools';
 import webpack from 'webpack';
 
 export default async function (options: ProjectConfigType, open?: boolean) {
     const { projectPath, cliConfig, templatePath } = options;
     const commonConfig = getCommonConfig(options);
+    //获取可用端口
     const port = await getPort();
     //获取开发者自定义添加的脚手架的plugin配置
     const custDevCfg = cliConfig.dev || {};
@@ -33,6 +33,7 @@ export default async function (options: ProjectConfigType, open?: boolean) {
             hash: true //对html引用的js文件添加hash戳
         })
     ];
+    //处理自定义变量设置
     if (Object.keys(defineVars).length !== 0) {
         basicPlugins.push(
             new webpack.DefinePlugin({

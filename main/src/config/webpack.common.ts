@@ -7,7 +7,7 @@ import { initFields, ProjectConfigType } from '../utils/tools';
 
 export default function ({ projectPath, entryPath, templatePath, cliConfig }: ProjectConfigType) {
     //开发者的自定义配置
-    const custCommonCfg = cliConfig.common || {};
+    const custCommonConfig = cliConfig.common || {};
 
     return {
         //入口文件路径，必须为js
@@ -18,7 +18,7 @@ export default function ({ projectPath, entryPath, templatePath, cliConfig }: Pr
             filename: 'js/[chunkhash].[name].js',
             // 静态文件打包后的路径及文件名（默认是走全局的，如果有独立的设置就按照自己独立的设置来。）
             assetModuleFilename: 'assets/[name]_[chunkhash][ext]',
-            publicPath: custCommonCfg.publicPath || initFields.publicPath
+            publicPath: custCommonConfig.publicPath || initFields.publicPath
         },
         target: ['web', 'es5'], //webpack5默认生成es6，设置编译打包生成es5代码
         cache: {
@@ -171,9 +171,9 @@ export default function ({ projectPath, entryPath, templatePath, cliConfig }: Pr
                     removeAttributeQuotes: true //去掉html标签属性的引号
                 },
                 templateParameters: {
-                    routerBase: custCommonCfg.publicPath || initFields.publicPath
+                    routerBase: custCommonConfig.publicPath || initFields.publicPath
                 },
-                title: custCommonCfg.title || initFields.title,
+                title: custCommonConfig.title || initFields.title,
                 hash: true //对html引用的js文件添加hash戳
             }),
 
@@ -189,7 +189,7 @@ export default function ({ projectPath, entryPath, templatePath, cliConfig }: Pr
                 clear: false
             }),
 
-            ...(custCommonCfg.plugins || initFields.plugins)
+            ...(custCommonConfig.plugins || initFields.plugins)
         ]
     };
 }

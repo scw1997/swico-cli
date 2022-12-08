@@ -22,3 +22,5 @@ program
     .action(() => {
         handleBuild();
     });
+// 解析用户执行命令传入参数
+program.parse(process.argv);
