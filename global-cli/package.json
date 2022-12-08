@@ -1,6 +1,6 @@
 {
   "name": "secywo",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "An independently developed front-end project scaffolding based on Typescript + React + Webpack",
   "main": "index.js",
   "keywords": [

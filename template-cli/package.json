@@ -1,6 +1,6 @@
 {
-  "name": "secywo-cli",
-  "version": "0.4.11",
+  "name": "secywo-template-cli",
+  "version": "0.5.0",
   "description": "secywo template cli",
   "main": "index.js",
   "keywords": [
@@ -13,7 +13,7 @@
     "template"
   ],
   "bin": {
-    "secywo-cli": "./src/bin.js"
+    "secywo": "./src/bin.js"
   },
   "scripts": {
     "compileToJs": "tsc"
