@@ -8,7 +8,17 @@ import { initFields, ProjectConfigType } from '../utils/tools';
 export default function({ projectPath, entryPath, templatePath, cliConfig }: ProjectConfigType) {
   //开发者的自定义配置
   const custCommonConfig = cliConfig.common || {};
-
+  //处理alias 自定义配置
+  const getCustAliasConfig = () => {
+    const { alias } = custCommonConfig;
+    const custConfig = {};
+    if (alias) {
+      Object.keys(alias).forEach(key => {
+        custConfig[key] = path.resolve(projectPath, `./${alias[key]}`);
+      });
+    }
+    return custConfig;
+  };
   return {
     //入口文件路径，必须为js
     entry: entryPath,
@@ -157,7 +167,8 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
       alias: {
-        '@': path.resolve(projectPath, './src')
+        '@': path.resolve(projectPath, './src'),
+        ...getCustAliasConfig()
       }
     },
     plugins: [
