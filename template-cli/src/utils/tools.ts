@@ -9,6 +9,7 @@ interface CliConfigFields {
   console?: boolean;
   define?: Record<string, any>;
   alias?: Record<string, any>;
+  proxy?: Record<string, any>;
 }
 
 export interface ProjectConfigType {
@@ -49,9 +50,7 @@ export const getProjectConfig: () => Promise<ProjectConfigType> = async () => {
     //存在则读取
 
     if (exists) {
-      const curtCfgData = (await import(curCfgPath)).default;
-
-      cliConfig[key] = curtCfgData;
+      cliConfig[key] = (await import(curCfgPath)).default;
     }
   }
 
@@ -81,6 +80,6 @@ export const initFields: CliConfigFields = {
   console: false, //生产环境是否去掉console打印信息
   plugins: [],
   publicPath: '/',
-  title: 'Secywo App'
-
+  title: 'Secywo App',
+  proxy: null
 };

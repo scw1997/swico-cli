@@ -63,6 +63,7 @@ export default async function(options: ProjectConfigType, open?: boolean) {
           warnings: false
         }
       },
+      proxy: custDevCfg.proxy ?? custCommonCfg.proxy,
       compress: true, //启动gzip压缩
       hot: true, //热更新
       open: open ?? true, //自动打开浏览器,
