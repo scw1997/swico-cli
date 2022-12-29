@@ -189,7 +189,8 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
       }),
 
       new MiniCssExtractPlugin({
-        filename: 'css/[contenthash].[name].css'
+        filename: 'css/[contenthash].[name].css',
+        ignoreOrder: true
       }),
 
       // 进度条
