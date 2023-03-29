@@ -2,8 +2,12 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import chalk from 'chalk';
+import EslintPlugin from 'eslint-webpack-plugin';
 import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import { initFields, ProjectConfigType } from '../utils/tools';
+import os from 'os';
+
+const coreNum = os.cpus().length;
 
 export default function({ projectPath, entryPath, templatePath, cliConfig }: ProjectConfigType) {
   //开发者的自定义配置
@@ -41,7 +45,7 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
           exclude: /node_modules/,
           use: [
             {
-              loader: 'babel-loader',
+              loader: 'babel-loader?cacheDirectory',
               options: {
                 presets: ['@babel/preset-react', '@babel/preset-env'],
                 plugins: [
@@ -50,8 +54,7 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
                 ]
               }
             },
-            'ts-loader',
-            'eslint-loader'
+            'ts-loader'
           ]
         },
 
@@ -191,6 +194,16 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
       new MiniCssExtractPlugin({
         filename: 'css/[contenthash].[name].css',
         ignoreOrder: true
+      }),
+      new EslintPlugin({
+        // exclude: path.resolve(__dirname, '../src/components/'),
+        context: path.resolve(projectPath, './src'),
+        // 开启缓存
+        cache: true,
+        // 指定缓存目录
+        // cacheLocation: path.resolve(__dirname, '../node_modules/.cache/eslintCache'),
+        // 开启多进程和进程数量
+        threads: coreNum
       }),
 
       // 进度条

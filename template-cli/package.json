@@ -1,6 +1,6 @@
 {
   "name": "secywo-template-cli",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "secywo template cli",
   "main": "index.js",
   "keywords": [
@@ -44,6 +44,7 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-import": "^1.13.5",
     "chalk": "^4.1.2",
+    "chokidar": "^3.5.3",
     "clean-webpack-plugin": "^4.0.0",
     "commander": "^8.2.0",
     "copy-webpack-plugin": "^11.0.0",
@@ -58,6 +59,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-webpack-plugin": "^4.0.0",
     "fs-extra": "^10.0.1",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.2",
@@ -80,8 +82,7 @@
     "webpack": "^5.58.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.0",
-    "webpack-dev-server": "^4.3.1",
-    "chokidar": "^3.5.3"
+    "webpack-dev-server": "^4.3.1"
   },
   "devDependencies": {}
 }
