@@ -1,6 +1,6 @@
 {
   "name": "secywo-template-cli",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "secywo template cli",
   "main": "index.js",
   "keywords": [
@@ -53,7 +53,6 @@
     "css-minimizer-webpack-plugin": "^3.1.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
