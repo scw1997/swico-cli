@@ -47,7 +47,11 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
             {
               loader: 'babel-loader?cacheDirectory',
               options: {
-                presets: ['@babel/preset-react', '@babel/preset-env'],
+                'presets': [
+                  '@babel/preset-env',
+                  //react17以后不需要再引入react
+                  ['@babel/preset-react', { 'runtime': 'automatic' }]
+                ],
                 plugins: [
                   '@babel/plugin-transform-runtime',
                   '@babel/plugin-proposal-class-properties'
