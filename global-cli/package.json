@@ -1,6 +1,6 @@
 {
   "name": "secywo",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "An independently developed front-end project scaffolding based on Typescript + React + Webpack",
   "main": "index.js",
   "keywords": [
@@ -25,22 +25,22 @@
   "author": "scw",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^4.1.2",
-    "commander": "^8.2.0",
-    "cross-spawn": "^7.0.3",
-    "download-git-repo": "^3.0.2",
-    "figlet": "^1.5.2",
-    "fs-extra": "^11.1.0",
-    "inquirer": "^8.0.0",
-    "ora": "^5.1.0",
-    "ts-node": "^10.7.0",
+    "chalk": "~4.1.2",
+    "commander": "~8.2.0",
+    "cross-spawn": "~7.0.3",
+    "download-git-repo": "~3.0.2",
+    "figlet": "~1.5.2",
+    "fs-extra": "~11.1.0",
+    "inquirer": "~8.0.0",
+    "ora": "~5.1.0",
+    "ts-node": "~10.7.0",
     "typescript": "4.4.3"
   },
   "devDependencies": {
-    "@types/node": "^18.11.11",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "eslint": "^7.32.0",
-    "prettier": "^2.6.2"
+    "@types/node": "~18.11.11",
+    "@typescript-eslint/eslint-plugin": "~4.33.0",
+    "@typescript-eslint/parser": "~4.33.0",
+    "eslint": "~7.32.0",
+    "prettier": "~2.6.2"
   }
 }

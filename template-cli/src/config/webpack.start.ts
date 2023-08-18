@@ -57,7 +57,7 @@ export default async function(options: ProjectConfigType, open?: boolean) {
       port, //端口
       client: {
         progress: true, //显示进度条
-        //警告不会显示页面
+        //警告不会覆盖页面
         overlay: {
           errors: true,
           warnings: false
@@ -66,7 +66,7 @@ export default async function(options: ProjectConfigType, open?: boolean) {
       proxy: custDevCfg.proxy ?? custCommonCfg.proxy,
       compress: true, //启动gzip压缩
       hot: true, //热更新
-      open: open ?? true, //自动打开浏览器,
+      open: true, //自动打开浏览器,
       static: {
         //提供静态文件服务的路径
         directory: path.join(projectPath, './public')
