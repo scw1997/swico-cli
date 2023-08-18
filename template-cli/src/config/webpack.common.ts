@@ -44,6 +44,7 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
           test: /\.(tsx|ts)$/,
           exclude: /node_modules/,
           use: [
+            'thread-loader', //多进程打包，建议只用于耗时较长的loader前面
             {
               loader: 'babel-loader?cacheDirectory',
               options: {
@@ -58,7 +59,13 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
                 ]
               }
             },
-            'ts-loader'
+            {
+              loader: 'ts-loader',
+              options: {
+                //配置了thread-loader必须加这个选项,否则报错
+                happyPackMode: true
+              }
+            }
           ]
         },
 
