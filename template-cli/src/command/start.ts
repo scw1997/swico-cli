@@ -53,7 +53,7 @@ export default async function start(open?: boolean) {
     );
     handleWatch(projectPath, devServer);
   } catch (e) {
-    spinner.fail(`出错了:${e.toString()}`);
+    spinner.fail(`There are some errors:${e.toString()}`);
   }
 
 
