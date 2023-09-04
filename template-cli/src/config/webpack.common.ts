@@ -4,10 +4,9 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import EslintPlugin from 'eslint-webpack-plugin';
 import { initFields, ProjectConfigType } from '../utils/tools';
 import os from 'os';
-//import chalk from 'chalk';
-//import ProgressBarPlugin from 'progress-bar-webpack-plugin';
+import chalk from 'chalk';
+import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import WebpackBar from 'webpackbar';
 
 const coreNum = os.cpus().length;
 
@@ -204,11 +203,8 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
         title: custCommonConfig.title || initFields.title,
         hash: true //对html引用的js文件添加hash戳
       }),
-      new WebpackBar({
-        basic: false,
-        color: '#f00',
-        profile: false
-      }),
+
+
       new ForkTsCheckerWebpackPlugin({
         typescript: {
           diagnosticOptions: {
@@ -233,13 +229,19 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
         threads: coreNum
       }),
 
-      // // 进度条
-      // new ProgressBarPlugin({
-      //   format: `building ${chalk.blue.bold(':bar')} ${chalk.green.bold(
-      //     ':percent'
-      //   )} (:elapsed s)`,
-      //   clear: false
-      // }),
+      // 进度条
+      new ProgressBarPlugin({
+        width: 50, 					 // 默认20，进度格子数量即每个代表进度数，如果是20，那么一格就是5。
+        format: chalk.blue.bold('building') + chalk.yellow('[:bar] ') + chalk.green.bold(':percent') + ' (:elapsed秒)',
+        stream: process.stderr,        // 默认stderr，输出流
+        complete: '#',                 // 默认“=”，完成字符
+        clear: false,                  // 默认true，完成时清除栏的选项
+        renderThrottle: ''            // 默认16，更新之间的最短时间（以毫秒为单位）
+        // callback() {                   // 进度条完成时调用的可选函数
+        //   console.log(chalk.blue.bold('完成'));
+        // }
+
+      }),
 
 
       ...(custCommonConfig.plugins || initFields.plugins)
