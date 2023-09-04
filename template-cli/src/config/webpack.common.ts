@@ -6,6 +6,7 @@ import EslintPlugin from 'eslint-webpack-plugin';
 import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import { initFields, ProjectConfigType } from '../utils/tools';
 import os from 'os';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 
 const coreNum = os.cpus().length;
 
@@ -63,6 +64,7 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
               loader: 'ts-loader',
               options: {
                 //配置了thread-loader必须加这个选项,否则报错
+                //开启此选项会默认忽略ts类型检查校验且编译时不报类型错误，需配合fork-ts-checker-webpack-plugin使用
                 happyPackMode: true
               }
             }
@@ -186,6 +188,14 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
       }
     },
     plugins: [
+      new ForkTsCheckerWebpackPlugin({
+        typescript: {
+          diagnosticOptions: {
+            semantic: true,
+            syntactic: true
+          }
+        }
+      }),
       new HtmlWebpackPlugin({
         //不使用默认html文件，使用自己定义的html模板并自动引入打包后的js/css
         template: templatePath,

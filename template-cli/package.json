@@ -1,6 +1,6 @@
 {
   "name": "secywo-template-cli",
-  "version": "0.8.1",
+  "version": "0.8.9",
   "description": "secywo template cli",
   "main": "index.js",
   "keywords": [
@@ -58,6 +58,7 @@
     "eslint-plugin-react": "~7.26.1",
     "eslint-plugin-react-hooks": "~4.3.0",
     "eslint-webpack-plugin": "~4.0.0",
+    "fork-ts-checker-webpack-plugin": "^8.0.0",
     "fs-extra": "~10.0.1",
     "html-loader": "~2.1.2",
     "html-webpack-plugin": "~5.3.2",
