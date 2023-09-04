@@ -22,6 +22,7 @@ export default function(options: ProjectConfigType) {
   //获取自定义变量
   const defineVars = { ...(custCommonConfig.define ?? {}), ...(custPrdConfig.define ?? {}) };
   const commonConfig = getCommonConfig(options);
+  const publicPath = custPrdConfig.publicPath ?? custCommonConfig.publicPath ?? initFields.publicPath;
   //默认plugin配置
   const basicPlugins = [
     ...commonConfig.plugins.slice(1), //覆盖通用配置中的htmlWebpackPlugin配置
@@ -51,8 +52,7 @@ export default function(options: ProjectConfigType) {
       },
       title: custPrdConfig.title ?? custCommonConfig.title ?? initFields.title,
       templateParameters: {
-        publicPath:
-          custPrdConfig.publicPath ?? custCommonConfig.publicPath ?? initFields.publicPath
+        publicPath
       },
       hash: true //对html引用的js文件添加hash戳
     })
@@ -85,8 +85,7 @@ export default function(options: ProjectConfigType) {
     //打包后文件路径
     output: {
       ...commonConfig.output,
-      publicPath:
-        custPrdConfig.publicPath ?? custCommonConfig.publicPath ?? initFields.publicPath
+      publicPath
     },
     //控制输出文件大小的警告提示，单位字节
     performance: {

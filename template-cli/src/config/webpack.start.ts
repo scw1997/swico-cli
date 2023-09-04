@@ -14,8 +14,12 @@ export default async function(options: ProjectConfigType, open?: boolean) {
   const custCommonCfg = cliConfig.common || {};
   //获取自定义变量
   const defineVars = { ...(custCommonCfg.define ?? {}), ...(custDevCfg.define ?? {}) };
+
+  const publicPath = custDevCfg.publicPath ?? custCommonCfg.publicPath ?? initFields.publicPath;
   //basic plugins
   const basicPlugins: any[] = [
+    //这里是把common配置中第一个htmlPlugin配置删掉，使用当前start的htmlPlugin配置
+    ...commonConfig.plugins.slice(1),
     new HtmlWebpackPlugin({
       //不使用默认html文件，使用自己定义的html模板并自动引入打包后的js/css
       template: templatePath,
@@ -26,8 +30,7 @@ export default async function(options: ProjectConfigType, open?: boolean) {
         removeAttributeQuotes: true //去掉html标签属性的引号
       },
       templateParameters: {
-        publicPath:
-          custDevCfg.publicPath ?? custCommonCfg.publicPath ?? initFields.publicPath
+        publicPath
       },
       title: custDevCfg.title ?? custCommonCfg.title ?? initFields.title,
       hash: true //对html引用的js文件添加hash戳
@@ -47,13 +50,15 @@ export default async function(options: ProjectConfigType, open?: boolean) {
     //打包后文件路径
     output: {
       ...commonConfig.output,
-      publicPath: custDevCfg.publicPath ?? custCommonCfg.publicPath ?? initFields.publicPath
+      publicPath
     },
     mode: 'development',
     devtool: 'eval-cheap-module-source-map', // development
     devServer: {
       //使用HTML5 History API时，index.html可能需要提供页面来代替任何404响应。
-      historyApiFallback: true,
+      historyApiFallback: {
+        index: `${publicPath}index.html`
+      },
       port, //端口
       client: {
         progress: true, //显示进度条
@@ -69,12 +74,12 @@ export default async function(options: ProjectConfigType, open?: boolean) {
       open: true, //自动打开浏览器,
       static: {
         //提供静态文件服务的路径
-        directory: path.join(projectPath, './public')
+        directory: path.resolve(projectPath, './public')
       }
     },
     plugins: [
+
       ...basicPlugins,
-      ...commonConfig.plugins,
       ...(custDevCfg.plugins ?? initFields.plugins)
     ]
   };

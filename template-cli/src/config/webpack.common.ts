@@ -1,12 +1,13 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import chalk from 'chalk';
 import EslintPlugin from 'eslint-webpack-plugin';
-import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import { initFields, ProjectConfigType } from '../utils/tools';
 import os from 'os';
+//import chalk from 'chalk';
+//import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import WebpackBar from 'webpackbar';
 
 const coreNum = os.cpus().length;
 
@@ -188,14 +189,6 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
       }
     },
     plugins: [
-      new ForkTsCheckerWebpackPlugin({
-        typescript: {
-          diagnosticOptions: {
-            semantic: true,
-            syntactic: true
-          }
-        }
-      }),
       new HtmlWebpackPlugin({
         //不使用默认html文件，使用自己定义的html模板并自动引入打包后的js/css
         template: templatePath,
@@ -210,6 +203,19 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
         },
         title: custCommonConfig.title || initFields.title,
         hash: true //对html引用的js文件添加hash戳
+      }),
+      new WebpackBar({
+        basic: false,
+        color: '#f00',
+        profile: false
+      }),
+      new ForkTsCheckerWebpackPlugin({
+        typescript: {
+          diagnosticOptions: {
+            semantic: true,
+            syntactic: true
+          }
+        }
       }),
 
       new MiniCssExtractPlugin({
@@ -227,13 +233,14 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
         threads: coreNum
       }),
 
-      // 进度条
-      new ProgressBarPlugin({
-        format: `building ${chalk.blue.bold(':bar')} ${chalk.green.bold(
-          ':percent'
-        )} (:elapsed s)`,
-        clear: false
-      }),
+      // // 进度条
+      // new ProgressBarPlugin({
+      //   format: `building ${chalk.blue.bold(':bar')} ${chalk.green.bold(
+      //     ':percent'
+      //   )} (:elapsed s)`,
+      //   clear: false
+      // }),
+
 
       ...(custCommonConfig.plugins || initFields.plugins)
     ]
