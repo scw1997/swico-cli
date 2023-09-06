@@ -16,6 +16,7 @@ export interface ProjectConfigType {
   projectPath: string; //项目路径
   entryPath: string; //入口文件路径
   templatePath: string; //html模板文件路径
+  env?: 'dev' | 'prod'; //当前调用环境
   cliConfig: {
     //脚手架自定义配置
     common: CliConfigFields; //公共通用

@@ -1,5 +1,4 @@
 import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import EslintPlugin from 'eslint-webpack-plugin';
 import { initFields, ProjectConfigType } from '../utils/tools';
@@ -10,7 +9,7 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 
 const coreNum = os.cpus().length;
 
-export default function({ projectPath, entryPath, templatePath, cliConfig }: ProjectConfigType) {
+export default function({ projectPath, entryPath, env, cliConfig }: ProjectConfigType) {
   //开发者的自定义配置
   const custCommonConfig = cliConfig.common || {};
   //处理alias 自定义配置
@@ -30,7 +29,7 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
     //打包后文件路径
     output: {
       path: path.resolve(projectPath, './dist'),
-      filename: 'js/[chunkhash].[name].js',
+      filename: 'js/[name].[chunkhash].js',
       // 静态文件打包后的路径及文件名（默认是走全局的，如果有独立的设置就按照自己独立的设置来。）
       assetModuleFilename: 'assets/[name]_[chunkhash][ext]',
       publicPath: custCommonConfig.publicPath || initFields.publicPath
@@ -76,6 +75,7 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
             {
               test: /\.module\.css$/,
               use: [
+                // env === 'prod' ? MiniCssExtractPlugin.loader : 'style-loader',
                 MiniCssExtractPlugin.loader,
                 {
                   loader: 'css-loader',
@@ -98,6 +98,7 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
             {
               test: /\.css$/,
               use: [
+                // env === 'prod' ? MiniCssExtractPlugin.loader : 'style-loader',
                 MiniCssExtractPlugin.loader,
                 'css-loader',
                 {
@@ -114,6 +115,7 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
               test: /\.module\.less$/,
 
               use: [
+                // env === 'prod' ? MiniCssExtractPlugin.loader : 'style-loader',
                 MiniCssExtractPlugin.loader,
                 {
                   loader: 'css-loader',
@@ -138,9 +140,9 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
             {
               test: /\.less$/,
               use: [
+                // env === 'prod' ? MiniCssExtractPlugin.loader : 'style-loader',
                 MiniCssExtractPlugin.loader,
                 'css-loader',
-
                 {
                   loader: 'postcss-loader',
                   options: {
@@ -188,23 +190,6 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
       }
     },
     plugins: [
-      new HtmlWebpackPlugin({
-        //不使用默认html文件，使用自己定义的html模板并自动引入打包后的js/css
-        template: templatePath,
-        filename: 'index.html', //打包后的文件名
-        minify: {
-          //压缩和简化代码
-          collapseWhitespace: true, //去掉空行和空格
-          removeAttributeQuotes: true //去掉html标签属性的引号
-        },
-        templateParameters: {
-          publicPath: custCommonConfig.publicPath || initFields.publicPath
-        },
-        title: custCommonConfig.title || initFields.title,
-        hash: true //对html引用的js文件添加hash戳
-      }),
-
-
       new ForkTsCheckerWebpackPlugin({
         typescript: {
           diagnosticOptions: {
@@ -213,9 +198,8 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
           }
         }
       }),
-
       new MiniCssExtractPlugin({
-        filename: 'css/[contenthash].[name].css',
+        filename: env === 'dev' ? 'css/[name].css' : 'css/[name].[contenthash].css',
         ignoreOrder: true
       }),
       new EslintPlugin({
@@ -228,7 +212,6 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
         // 开启多进程和进程数量
         threads: coreNum
       }),
-
       // 进度条
       new ProgressBarPlugin({
         width: 50, 					 // 默认20，进度格子数量即每个代表进度数，如果是20，那么一格就是5。
@@ -242,8 +225,6 @@ export default function({ projectPath, entryPath, templatePath, cliConfig }: Pro
         // }
 
       }),
-
-
       ...(custCommonConfig.plugins || initFields.plugins)
     ]
   };

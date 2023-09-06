@@ -14,18 +14,18 @@ const BundleAnalyzerPlugin = BundleAnalyzer.BundleAnalyzerPlugin;
 const { ANALYZE } = process.env;
 
 export default function(options: ProjectConfigType) {
-  const { projectPath, cliConfig, templatePath } = options;
+  const { projectPath, cliConfig, templatePath } = options || {};
 
   //获取开发者自定义添加的脚手架的plugin配置
   const custPrdConfig = cliConfig.prd || {};
   const custCommonConfig = cliConfig.common || {};
   //获取自定义变量
   const defineVars = { ...(custCommonConfig.define ?? {}), ...(custPrdConfig.define ?? {}) };
-  const commonConfig = getCommonConfig(options);
+  const commonConfig = getCommonConfig({ ...options, env: 'prod' });
   const publicPath = custPrdConfig.publicPath ?? custCommonConfig.publicPath ?? initFields.publicPath;
   //默认plugin配置
   const basicPlugins = [
-    ...commonConfig.plugins.slice(1), //覆盖通用配置中的htmlWebpackPlugin配置
+    ...commonConfig.plugins,
     new CleanWebpackPlugin(),
     new CssMinimizerPlugin(),
 

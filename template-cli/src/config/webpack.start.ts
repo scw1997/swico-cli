@@ -5,8 +5,8 @@ import path from 'path';
 import webpack from 'webpack';
 
 export default async function(options: ProjectConfigType, open?: boolean) {
-  const { projectPath, cliConfig, templatePath } = options;
-  const commonConfig = getCommonConfig(options);
+  const { projectPath, cliConfig, templatePath } = options || {};
+  const commonConfig = getCommonConfig({ ...options, env: 'dev' });
   //获取可用端口
   const port = await getPort();
   //获取开发者自定义添加的脚手架的plugin配置
@@ -18,8 +18,7 @@ export default async function(options: ProjectConfigType, open?: boolean) {
   const publicPath = custDevCfg.publicPath ?? custCommonCfg.publicPath ?? initFields.publicPath;
   //basic plugins
   const basicPlugins: any[] = [
-    //这里是把common配置中第一个htmlPlugin配置删掉，使用当前start的htmlPlugin配置
-    ...commonConfig.plugins.slice(1),
+    ...commonConfig.plugins,
     new HtmlWebpackPlugin({
       //不使用默认html文件，使用自己定义的html模板并自动引入打包后的js/css
       template: templatePath,
@@ -71,14 +70,13 @@ export default async function(options: ProjectConfigType, open?: boolean) {
       proxy: custDevCfg.proxy ?? custCommonCfg.proxy,
       compress: true, //启动gzip压缩
       hot: true, //热更新
-      open: true, //自动打开浏览器,
+      open: open ?? true, //自动打开浏览器,
       static: {
         //提供静态文件服务的路径
         directory: path.resolve(projectPath, './public')
       }
     },
     plugins: [
-
       ...basicPlugins,
       ...(custDevCfg.plugins ?? initFields.plugins)
     ]
