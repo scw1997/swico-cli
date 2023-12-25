@@ -2,7 +2,7 @@
 
 #### 介绍
 
-一款个人开发的`Typescript + React + Webpack`的前端项目脚手架
+一款个人开发的`Typescript + Webpack`的前端项目脚手架，支持`React18+`和`Vue3+`两种内置模板选择
 
 #### 使用说明
 
@@ -14,4 +14,5 @@
 
 内置前端模板secywo-template相关使用文档：
 
-- [secywo-template源码地址](https://gitee.com/fanlaBoy/secywo-template)
+- [secywo-template-react源码地址](https://gitee.com/fanlaBoy/secywo-template-react)
+- [secywo-template-vue源码地址](https://gitee.com/fanlaBoy/secywo-template-vue)
