@@ -39,11 +39,11 @@ export default async function(projectName: string, options: Record<string, any>)
       message: chalk.yellowBright('Please select template type:'),
       choices: [
         {
-          name: 'React18.2',
+          name: 'React18.2 + Typescript5',
           value: 'react'
         },
         {
-          name: 'Vue3.4',
+          name: 'Vue3.4 + Typescript5',
           value: 'vue'
         }
       ]
