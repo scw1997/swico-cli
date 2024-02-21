@@ -1,6 +1,6 @@
 {
   "name": "secywo",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "An independently developed front-end project scaffolding based on Typescript  + Webpack",
   "main": "index.js",
   "keywords": [
@@ -32,12 +32,12 @@
     "download-git-repo": "3.0.2",
     "figlet": "1.7.0",
     "fs-extra": "11.2.0",
-    "inquirer": "9.2.15",
+    "inquirer": "8.0.0",
     "ora": "5.4.1",
     "typescript": "5.3.3"
   },
   "devDependencies": {
-    "@types/node": "^20.11.19",
+    "@types/node": "20.11.19",
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "@typescript-eslint/parser": "6.19.0",
     "eslint": "8.48.0",
