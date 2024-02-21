@@ -12,7 +12,7 @@
 4. 执行`npm run start`启动本地开发环境服务器
 5. 执行`npm run build`进行打包构建
 
-内置前端模板secywo-template相关使用文档：
+内置前端模板：
 
 - [secywo-template-react源码地址](https://gitee.com/fanlaBoy/secywo-template-react)
 - [secywo-template-vue源码地址](https://gitee.com/fanlaBoy/secywo-template-vue)
