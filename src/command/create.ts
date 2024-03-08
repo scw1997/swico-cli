@@ -35,8 +35,6 @@ const getStartScript = (npmType) => {
       return 'npm run start';
     case 'pnpm':
       return 'pnpm run start';
-    case 'yarn':
-      return 'yarn start';
   }
 };
 
@@ -93,11 +91,11 @@ const handlePrompt: () => Promise<{ templateType: string, npmType: string }> = a
         {
           name: 'pnpm',
           value: 'pnpm'
-        },
-        {
-          name: 'yarn',
-          value: 'yarn'
         }
+        // {
+        //   name: 'yarn',
+        //   value: 'yarn'
+        // }
       ]
     }
   ]);

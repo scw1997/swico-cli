@@ -1,6 +1,6 @@
 {
   "name": "secywo",
-  "version": "1.1.0-beta1",
+  "version": "1.1.0",
   "description": "An independently developed front-end project scaffolding based on Typescript  + Webpack",
   "main": "index.js",
   "keywords": [
@@ -17,8 +17,8 @@
   },
   "scripts": {
     "compile": "tsc",
-    "publish:official": "npm run compile & cd ./dist & npm publish",
-    "publish:beta": "npm run compile & cd ./dist & npm publish --tag=beta"
+    "publish:official": "npm run compile && cd ./dist && npm publish",
+    "publish:beta": "npm run compile && cd ./dist && npm publish --tag=beta"
   },
   "repository": {
     "type": "git",
