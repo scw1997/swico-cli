@@ -31,7 +31,7 @@ export const downloadTemp = (targetPath: string, templateType: 'react' | 'vue') 
 
 interface installProps {
   targetPath: string; // 项目根路径
-  packageType?: 'npm'; //包管理器，暂时只支持npm
+  packageType?: 'npm' | 'pnpm' | 'yarn'; //包管理工具
 }
 
 //自动安装依赖

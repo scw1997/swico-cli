@@ -1,42 +1,72 @@
 import { downloadTemp, installModules, logoText } from '../utils/tools';
 // fs-extra 是对 fs 模块的扩展，支持 promise 语法
-import fs from 'fs-extra';
 import inquirer from 'inquirer';
 import path from 'path';
 import chalk from 'chalk';
 import ora from 'ora';
+import fs from 'fs-extra';
 
 const spinner = ora();
 
-const createSecywoApp = async (targetPath, projectName, templateType) => {
+
+//根据npmType动态调整模板配置secywo.ts文件
+const rewriteSecywoConfigFile = (targetPath, npmType) => {
+  return new Promise((resolve, reject) => {
+    const textData = `//secywo脚手架公共自定义配置
+
+import { defineConfig } from 'secywo-template-cli';
+export default defineConfig('base', {
+    npmType:'${npmType}'
+});
+`;
+    fs.writeFile(`${targetPath}/config/secywo.ts`, textData, 'utf8', (err) => {
+      if (err) {
+        return reject('An error occurred during the npm configuration.');
+      }
+      resolve(null);
+    });
+  });
+
+};
+
+const getStartScript = (npmType) => {
+  switch (npmType) {
+    case 'npm':
+      return 'npm run start';
+    case 'pnpm':
+      return 'pnpm run start';
+    case 'yarn':
+      return 'yarn start';
+  }
+};
+
+const createSecywoApp = async ({ targetPath, projectName, templateType, npmType }) => {
   //拉取模板
   await downloadTemp(targetPath, templateType);
   //下载依赖
-  await installModules({ targetPath, packageType: 'npm' });
+  await installModules({ targetPath, packageType: npmType });
+  //根据npmType动态调整模板配置secywo.ts文件
+  await rewriteSecywoConfigFile(targetPath, npmType);
   console.log(chalk.green('Successfully Created!' + '\n'));
   //绘制logo
   console.log(logoText + '\n');
   //可以启动项目啦
+
   console.log(
     'Now you can',
     chalk.cyan(`cd ${projectName}`),
-    `and ${chalk.cyan('npm run start')} to start your Secywo App!`
+    `and ${chalk.cyan(`${getStartScript(npmType)}`)} to start your Secywo App!`
   );
 };
 
-// 执行创建项目命令
-export default async function(projectName: string, options: Record<string, any>) {
-  // 当前命令行选择的目录
-  const cwd = process.cwd();
-  // 需要创建的目录地址
-  const targetPath = path.join(cwd, projectName);
 
+const handlePrompt: () => Promise<{ templateType: string, npmType: string }> = async () => {
   // 选择模板类型
-  const { type } = await inquirer.prompt([
+  const { templateType } = await inquirer.prompt([
     {
-      name: 'type',
+      name: 'templateType',
       type: 'list',
-      message: chalk.yellowBright('Please select template type:'),
+      message: chalk.yellowBright('Please select the template type:'),
       choices: [
         {
           name: 'React18.2 + Typescript5',
@@ -49,6 +79,37 @@ export default async function(projectName: string, options: Record<string, any>)
       ]
     }
   ]);
+  // 选择模板类型
+  const { npmType } = await inquirer.prompt([
+    {
+      name: 'npmType',
+      type: 'list',
+      message: chalk.yellowBright('Please select the npm type:'),
+      choices: [
+        {
+          name: 'npm',
+          value: 'npm'
+        },
+        {
+          name: 'pnpm',
+          value: 'pnpm'
+        },
+        {
+          name: 'yarn',
+          value: 'yarn'
+        }
+      ]
+    }
+  ]);
+  return { templateType, npmType };
+};
+
+// 执行创建项目命令
+export default async function(projectName: string, options: Record<string, any>) {
+  // 当前命令行选择的目录
+  const cwd = process.cwd();
+  // 需要创建的目录地址
+  const targetPath = path.join(cwd, projectName);
 
 
   // 目录是否已经存在？
@@ -86,10 +147,14 @@ export default async function(projectName: string, options: Record<string, any>)
         await fs.remove(targetPath);
         spinner.succeed('Removed');
         console.log('\n');
-        createSecywoApp(targetPath, projectName, type);
+
+      } else {
+        return;
       }
     }
-  } else {
-    createSecywoApp(targetPath, projectName, type);
   }
+  const { npmType, templateType } = await handlePrompt();
+  createSecywoApp({ targetPath, projectName, templateType, npmType });
+
+
 }
