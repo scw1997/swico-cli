@@ -12,7 +12,7 @@ export const downloadTemp = (targetPath: string, templateType: 'react' | 'vue') 
   console.log('\n');
   return new Promise((resolve, reject) => {
     downGit(
-      templateType === 'react' ? 'https://gitee.com:fanlaBoy/secywo-template#master' : 'https://gitee.com:fanlaBoy/secywo-template-vue#master',
+      templateType === 'react' ? 'https://gitee.com:fanlaBoy/swico-template-react#v1' : 'https://gitee.com:fanlaBoy/swico-template-vue#v1',
       targetPath,
       { clone: true },
       (e) => {
@@ -69,7 +69,7 @@ export const installModules = async (options: installProps) => {
 
 export const logoText =
   '\r\n' +
-  figlet.textSync('secywo', {
+  figlet.textSync('swico', {
     font: 'Ghost',
     horizontalLayout: 'default',
     verticalLayout: 'default',

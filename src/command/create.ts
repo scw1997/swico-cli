@@ -9,17 +9,17 @@ import fs from 'fs-extra';
 const spinner = ora();
 
 
-//根据npmType动态调整模板配置secywo.ts文件
-const rewriteSecywoConfigFile = (targetPath, npmType) => {
+//根据npmType动态调整模板配置swico.ts文件
+const rewriteSwicoConfigFile = (targetPath, npmType) => {
   return new Promise((resolve, reject) => {
-    const textData = `//secywo脚手架公共自定义配置
+    const textData = `//swico脚手架公共自定义配置
 
-import { defineConfig } from 'secywo-template-cli';
+import { defineConfig } from 'swico';
 export default defineConfig('base', {
     npmType:'${npmType}'
 });
 `;
-    fs.writeFile(`${targetPath}/config/secywo.ts`, textData, 'utf8', (err) => {
+    fs.writeFile(`${targetPath}/config/swico.ts`, textData, 'utf8', (err) => {
       if (err) {
         return reject('An error occurred during the npm configuration.');
       }
@@ -38,13 +38,13 @@ const getStartScript = (npmType) => {
   }
 };
 
-const createSecywoApp = async ({ targetPath, projectName, templateType, npmType }) => {
+const createSwicoApp = async ({ targetPath, projectName, templateType, npmType }) => {
   //拉取模板
   await downloadTemp(targetPath, templateType);
   //下载依赖
   await installModules({ targetPath, packageType: npmType });
-  //根据npmType动态调整模板配置secywo.ts文件
-  await rewriteSecywoConfigFile(targetPath, npmType);
+  //根据npmType动态调整模板配置swico.ts文件
+  await rewriteSwicoConfigFile(targetPath, npmType);
   console.log(chalk.green('Successfully Created!' + '\n'));
   //绘制logo
   console.log(logoText + '\n');
@@ -53,7 +53,7 @@ const createSecywoApp = async ({ targetPath, projectName, templateType, npmType 
   console.log(
     'Now you can',
     chalk.cyan(`cd ${projectName}`),
-    `and ${chalk.cyan(`${getStartScript(npmType)}`)} to start your Secywo App!`
+    `and ${chalk.cyan(`${getStartScript(npmType)}`)} to start your Swico App!`
   );
 };
 
@@ -152,7 +152,7 @@ export default async function(projectName: string, options: Record<string, any>)
     }
   }
   const { npmType, templateType } = await handlePrompt();
-  createSecywoApp({ targetPath, projectName, templateType, npmType });
+  createSwicoApp({ targetPath, projectName, templateType, npmType });
 
 
 }
