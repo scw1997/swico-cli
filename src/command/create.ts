@@ -12,14 +12,13 @@ const spinner = ora();
 //根据npmType动态调整模板配置swico.ts文件
 const rewriteSwicoConfigFile = (targetPath, npmType) => {
   return new Promise((resolve, reject) => {
-    const textData = `//swico脚手架公共自定义配置
+    let replaceSwicoText = fs.readFileSync(
+      path.resolve(__dirname, `${targetPath}/config/swico.ts`),
+      'utf8'
+    );
+    replaceSwicoText = replaceSwicoText.replaceAll('npmType: \'npm\'', `npmType: '${npmType}'`);
 
-import { defineConfig } from 'swico';
-export default defineConfig('base', {
-    npmType:'${npmType}'
-});
-`;
-    fs.writeFile(`${targetPath}/config/swico.ts`, textData, 'utf8', (err) => {
+    fs.writeFile(`${targetPath}/config/swico.ts`, replaceSwicoText, 'utf8', (err) => {
       if (err) {
         return reject('An error occurred during the npm configuration.');
       }

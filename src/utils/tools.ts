@@ -45,7 +45,7 @@ export const installModules = async (options: installProps) => {
     return reject(errMsg);
   };
   //开始安装
-  spinner.start('installing dependencies... \n');
+  console.log(`\n${chalk.hex('#5f72f5')('Installing dependencies...')} \n`);
   return new Promise((resolve, reject) => {
     // const args = ['install', '--save', '--save-exact', '--loglevel', 'error'];
     const args = ['install'];
