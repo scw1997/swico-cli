@@ -66,11 +66,11 @@ const handlePrompt: () => Promise<{ templateType: string, npmType: string }> = a
       message: chalk.yellowBright('Please select the template type:'),
       choices: [
         {
-          name: 'React18.2 + Typescript5',
+          name: 'React18.2 + Typescript5.3',
           value: 'react'
         },
         {
-          name: 'Vue3.4 + Typescript5',
+          name: 'Vue3.4 + Typescript5.3',
           value: 'vue'
         }
       ]
