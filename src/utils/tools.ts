@@ -1,8 +1,9 @@
 import ora from 'ora';
-import downGit from 'download-git-repo';
 import spawn from 'cross-spawn';
 import figlet from 'figlet';
 import chalk from 'chalk';
+import fs from 'fs-extra';
+import path from 'path';
 
 const spinner = ora();
 
@@ -11,21 +12,31 @@ export const downloadTemp = (targetPath: string, templateType: 'react' | 'vue') 
   spinner.start('pulling the built-in template... ');
   console.log('\n');
   return new Promise((resolve, reject) => {
-    downGit(
-      templateType === 'react' ? 'https://gitee.com:fanlaBoy/swico-template-react#v1' : 'https://gitee.com:fanlaBoy/swico-template-vue#v1',
-      targetPath,
-      { clone: true },
-      (e) => {
-        if (e) {
-          const err = e.toString();
-          spinner.fail(chalk.red(err));
-          reject(err);
-        } else {
-          resolve(null);
-          spinner.succeed(chalk.green('Successfully pulled!'));
-        }
-      }
-    );
+    // downGit(
+    //   templateType === 'react' ? 'https://gitee.com:fanlaBoy/swico-template-react#v1' : 'https://gitee.com:fanlaBoy/swico-template-vue#v1',
+    //   targetPath,
+    //   { clone: true },
+    //   (e) => {
+    //     if (e) {
+    //       const err = e.toString();
+    //       spinner.fail(chalk.red(err));
+    //       reject(err);
+    //     } else {
+    //       resolve(null);
+    //       spinner.succeed(chalk.green('Successfully pulled!'));
+    //     }
+    //   }
+    // );
+    copyDirFiles(path.resolve(__dirname, `../templates/${templateType}`), targetPath).then(res => {
+      resolve(null);
+      spinner.succeed(chalk.green('Successfully pulled!'));
+    }).catch(e => {
+      const err = e.toString();
+      spinner.fail(chalk.red(err));
+      reject(err);
+    });
+
+
   });
 };
 
@@ -76,3 +87,34 @@ export const logoText =
     width: 80,
     whitespaceBreak: true
   });
+
+
+//复制文件夹
+export const copyDirFiles = async (src, dest, filter?: (fileName) => boolean) => {
+  const _copy = async (src, dest) => {
+    const files = await fs.readdir(src);
+    //过滤文件
+    const filterFiles = files.filter((fileName) => (filter ? filter(fileName) === true : true));
+    for await (const file of filterFiles) {
+      const srcPath = path.join(src, file);
+      const destPath = path.join(dest, file);
+      const srcStat = await fs.stat(srcPath);
+      if (srcStat.isDirectory()) {
+        // 如果是目录，则递归复制
+        _copy(srcPath, destPath);
+      } else {
+        // 如果是文件，则直接复制
+        await fs.copyFile(srcPath, destPath);
+      }
+    }
+    return null; // 所有文件复制完成后调用回调
+  };
+
+  try {
+    await fs.access(dest);
+  } catch (e) {
+    // 如果目标文件夹不存在，则创建它
+    await fs.mkdir(dest, { recursive: true });
+  }
+  await _copy(src, dest);
+};

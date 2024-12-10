@@ -16,7 +16,7 @@
     "swico": "./src/bin.js"
   },
   "scripts": {
-    "compile": "tsc",
+    "compile": "tsc && ts-node ./src/task.ts",
     "publish:official": "npm run compile && cd ./dist && npm publish",
     "publish:beta": "npm run compile && cd ./dist && npm publish --tag=beta"
   },
@@ -42,6 +42,7 @@
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "@typescript-eslint/parser": "6.19.0",
     "eslint": "8.48.0",
-    "prettier": "3.2.5"
+    "prettier": "3.2.5",
+    "ts-node": "10.9.1"
   }
 }
