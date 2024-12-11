@@ -100,7 +100,8 @@ export const copyDirFiles = async (src, dest, filter?: (fileName) => boolean) =>
       const destPath = path.join(dest, file);
       const srcStat = await fs.stat(srcPath);
       if (srcStat.isDirectory()) {
-        // 如果是目录，则递归复制
+        // 如果是目录，先在目标路径创建其文件夹，再递归复制
+        await fs.mkdir(destPath, { recursive: true });
         _copy(srcPath, destPath);
       } else {
         // 如果是文件，则直接复制
