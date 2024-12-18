@@ -1,10 +1,20 @@
 import path from 'path';
 import { copyDirFiles } from './utils/tools';
+import fs from 'fs-extra';
 
-
-const main = () => {
+const copyTemplateFiles = async () => {
   const targetPath = path.resolve(__dirname, '../dist/src/templates/');
-  copyDirFiles(path.resolve(__dirname, './templates/'), targetPath);
+  await copyDirFiles(path.resolve(__dirname, './templates/'), targetPath);
+};
+
+const copyReadMeFiles = async () => {
+  const filePath = path.resolve(__dirname, '../README.md');
+  const targetPath = path.resolve(__dirname, '../dist/README.md');
+  await fs.copyFile(filePath, targetPath);
+};
+const main = () => {
+  copyTemplateFiles();
+  copyReadMeFiles();
 
 };
 main();
