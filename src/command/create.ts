@@ -76,29 +76,29 @@ const handlePrompt: () => Promise<{ templateType: string, npmType: string }> = a
       ]
     }
   ]);
-  // 选择模板类型
-  const { npmType } = await inquirer.prompt([
-    {
-      name: 'npmType',
-      type: 'list',
-      message: chalk.yellowBright('Please select the npm type:'),
-      choices: [
-        {
-          name: 'npm',
-          value: 'npm'
-        },
-        {
-          name: 'pnpm',
-          value: 'pnpm'
-        }
-        // {
-        //   name: 'yarn',
-        //   value: 'yarn'
-        // }
-      ]
-    }
-  ]);
-  return { templateType, npmType };
+  // // 选择模板类型
+  // const { npmType } = await inquirer.prompt([
+  //   {
+  //     name: 'npmType',
+  //     type: 'list',
+  //     message: chalk.yellowBright('Please select the npm type:'),
+  //     choices: [
+  //       {
+  //         name: 'npm',
+  //         value: 'npm'
+  //       }
+  //       // {
+  //       //   name: 'pnpm',
+  //       //   value: 'pnpm'
+  //       // }
+  //       // {
+  //       //   name: 'yarn',
+  //       //   value: 'yarn'
+  //       // }
+  //     ]
+  //   }
+  // ]);
+  return { templateType, npmType: 'npm' };
 };
 
 // 执行创建项目命令
