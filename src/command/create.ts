@@ -76,29 +76,25 @@ const handlePrompt: () => Promise<{ templateType: string, npmType: string }> = a
       ]
     }
   ]);
-  // // 选择模板类型
-  // const { npmType } = await inquirer.prompt([
-  //   {
-  //     name: 'npmType',
-  //     type: 'list',
-  //     message: chalk.yellowBright('Please select the npm type:'),
-  //     choices: [
-  //       {
-  //         name: 'npm',
-  //         value: 'npm'
-  //       }
-  //       // {
-  //       //   name: 'pnpm',
-  //       //   value: 'pnpm'
-  //       // }
-  //       // {
-  //       //   name: 'yarn',
-  //       //   value: 'yarn'
-  //       // }
-  //     ]
-  //   }
-  // ]);
-  return { templateType, npmType: 'npm' };
+  // 选择模板类型
+  const { npmType } = await inquirer.prompt([
+    {
+      name: 'npmType',
+      type: 'list',
+      message: chalk.yellowBright('Please select the npm type:'),
+      choices: [
+        {
+          name: 'npm',
+          value: 'npm'
+        },
+        {
+          name: 'pnpm',
+          value: 'pnpm'
+        }
+      ]
+    }
+  ]);
+  return { templateType, npmType};
 };
 
 // 执行创建项目命令
@@ -108,49 +104,50 @@ export default async function(projectName: string, options: Record<string, any>)
   // 需要创建的目录地址
   const targetPath = path.join(cwd, projectName);
 
+  //选择npm包管理工具和模板类型
+  const { npmType, templateType } = await handlePrompt();
 
   // 目录是否已经存在？
-  if (fs.existsSync(targetPath)) {
-    // 是否为强制创建？
-    if (options.force) {
-      spinner.start('The target project name already exists, removing... ');
-      await fs.remove(targetPath);
-      spinner.succeed('Removed');
-      console.log('\n');
-    } else {
-      // 询问用户是否确定要覆盖
-      const { action } = await inquirer.prompt([
-        {
-          name: 'action',
-          type: 'list',
-          message: chalk.yellowBright('The destination folder already exists, please select:'),
-          choices: [
-            {
-              name: 'Overwritten',
-              value: true
-            },
-            {
-              name: 'Cancel',
-              value: false
-            }
-          ]
-        }
-      ]);
-
-      if (action) {
-        spinner.start('Removing The existing project with the same name... ');
-
-        // 移除已存在的目录
+  const isDirExists = fs.existsSync(targetPath);
+  if(isDirExists){
+      // 是否为强制创建？
+      if (options.force) {
+        spinner.start('The target project name already exists, removing... ');
         await fs.remove(targetPath);
         spinner.succeed('Removed');
         console.log('\n');
-
       } else {
-        return;
+        // 询问用户是否确定要覆盖
+        const { action } = await inquirer.prompt([
+          {
+            name: 'action',
+            type: 'list',
+            message: chalk.yellowBright('The destination folder already exists, please select:'),
+            choices: [
+              {
+                name: 'Overwritten',
+                value: true
+              },
+              {
+                name: 'Cancel',
+                value: false
+              }
+            ]
+          }
+        ]);
+
+        if (action) {
+          spinner.start('Removing The existing project with the same name... ');
+
+          // 移除已存在的目录
+          await fs.remove(targetPath);
+          spinner.succeed('Removed');
+          console.log('\n');
+
+        }
       }
     }
-  }
-  const { npmType, templateType } = await handlePrompt();
+  // 执行创建项目
   createSwicoApp({ targetPath, projectName, templateType, npmType });
 
 

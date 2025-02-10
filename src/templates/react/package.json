@@ -4,9 +4,10 @@
   "description": "React template for front-end framework Swico",
   "main": "index.js",
   "scripts": {
-    "start": "npx husky init & swico start",
+    "start": "swico start",
     "build": "swico build",
     "build:analyze": "cross-env ANALYZE=true swico build",
+    "husky:init": "npx husky init",
     "test": "lint-staged",
     "prepare": "husky"
   },
@@ -32,57 +33,14 @@
   "author": "scw",
   "license": "ISC",
   "dependencies": {
-    "swico": "1.4.0"
+    "swico": "1.5.0-beta.9"
+  },
+  "devDependencies": {
+    "husky": "9.0.10",
+    "@types/react": "18.2.79",
+    "@types/react-dom": "18.2.25"
   },
   "engines": {
     "node": ">=18.0.0"
-  },
-  "devDependencies": {
-    "@babel/types": "7.23.9",
-    "@commitlint/cli": "18.5.0",
-    "@commitlint/config-conventional": "18.5.0",
-    "@swc/core": "1.4.6",
-    "@types/react": "18.2.0",
-    "@types/react-dom": "18.2.0",
-    "@typescript-eslint/eslint-plugin": "6.19.0",
-    "@typescript-eslint/parser": "6.19.0",
-    "autoprefixer": "10.3.7",
-    "chalk": "4.1.2",
-    "chokidar": "3.6.0",
-    "commander": "12.0.0",
-    "copy-webpack-plugin": "12.0.2",
-    "cross-env": "7.0.3",
-    "cross-spawn": "7.0.3",
-    "css-loader": "6.3.0",
-    "esbuild-loader": "4.0.3",
-    "eslint": "8.48.0",
-    "eslint-plugin-react": "7.33.2",
-    "eslint-plugin-react-hooks": "4.3.0",
-    "eslint-webpack-plugin": "4.0.0",
-    "fork-ts-checker-webpack-plugin": "9.0.2",
-    "html-loader": "5.0.0",
-    "html-webpack-plugin": "5.3.2",
-    "husky": "9.0.10",
-    "less": "4.1.2",
-    "less-loader": "12.2.0",
-    "lint-staged": "15.2.1",
-    "mini-css-extract-plugin": "2.4.2",
-    "ora": "5.4.1",
-    "portfinder": "1.0.32",
-    "postcss-loader": "8.1.0",
-    "postcss-preset-env": "9.3.0",
-    "prettier": "3.2.5",
-    "style-loader": "3.3.0",
-    "swc-loader": "0.2.6",
-    "ts-node": "10.9.1",
-    "typescript": "5.3.3",
-    "webpack": "5.88.2",
-    "webpack-bundle-analyzer": "4.9.1",
-    "webpack-cli": "5.1.4",
-    "webpack-dev-server": "4.15.2",
-    "webpack-merge": "5.9.0",
-    "webpackbar": "6.0.0",
-    "sass": "1.77.5",
-    "sass-loader": "14.2.1"
   }
 }
