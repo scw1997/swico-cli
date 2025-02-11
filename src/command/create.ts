@@ -5,6 +5,7 @@ import path from 'path';
 import chalk from 'chalk';
 import ora from 'ora';
 import fs from 'fs-extra';
+import spawn from 'cross-spawn';
 
 const spinner = ora();
 
@@ -28,6 +29,62 @@ const rewriteSwicoConfigFile = (targetPath, npmType) => {
 
 };
 
+// 项目husky初始化
+const initHusky = async (targetPath)=>{
+  //报错处理
+  const handleErr = (reject) => {
+    const errMsg = chalk.red('Error occurred while Husky initialization!');
+    spinner.fail(errMsg);
+    process.exit(1);
+    return reject(errMsg);
+  };
+  return new Promise((resolve, reject) => {
+    const args = ['husky','init'];
+    const child = spawn('npx', args, {
+      cwd: targetPath,
+      stdio: ['pipe', process.stdout, process.stderr]
+    });
+
+    child.once('close', (code: number) => {
+      if (code !== 0) {
+        handleErr(reject);
+      }
+      resolve(null);
+    });
+    child.once('error', (...args) => {
+      handleErr(reject);
+    });
+  });
+};
+
+// 项目git初始化
+const initGit = async (targetPath)=>{
+  //报错处理
+  const handleErr = (reject) => {
+    const errMsg = chalk.red('Error occurred while Git initialization!');
+    spinner.fail(errMsg);
+    process.exit(1);
+    return reject(errMsg);
+  };
+  return new Promise((resolve, reject) => {
+    const args = ['init'];
+    const child = spawn('git', args, {
+      cwd: targetPath,
+      stdio: ['pipe', process.stdout, process.stderr]
+    });
+
+    child.once('close', (code: number) => {
+      if (code !== 0) {
+        handleErr(reject);
+      }
+      resolve(null);
+    });
+    child.once('error', (...args) => {
+      handleErr(reject);
+    });
+  });
+};
+
 const getStartScript = (npmType) => {
   switch (npmType) {
     case 'npm':
@@ -44,6 +101,11 @@ const createSwicoApp = async ({ targetPath, projectName, templateType, npmType }
   await installModules({ targetPath, packageType: npmType });
   //根据npmType动态调整模板配置swico.ts文件
   await rewriteSwicoConfigFile(targetPath, npmType);
+  // git和husky初始化(先git)
+  await initGit(targetPath);
+  await initHusky(targetPath);
+
+
   console.log(chalk.green('Successfully Created!' + '\n'));
   //绘制logo
   console.log(logoText + '\n');

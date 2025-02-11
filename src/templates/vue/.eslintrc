@@ -101,7 +101,7 @@
         "import/prefer-default-export": 0,
         "import/no-unresolved": 0,
         "import/extensions": 0,
-
+        "no-prototype-builtins": 0,   //不可访问prototype属性
         "no-extra-boolean-cast": 0, //禁止不必要的bool转换
         "no-unreachable": 1, //不能有无法执行的代码
         "no-mixed-spaces-and-tabs": 0, //禁止混用tab和空格
