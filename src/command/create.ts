@@ -9,26 +9,6 @@ import spawn from 'cross-spawn';
 
 const spinner = ora();
 
-
-//根据npmType动态调整模板配置swico.ts文件
-const rewriteSwicoConfigFile = (targetPath, npmType) => {
-  return new Promise((resolve, reject) => {
-    let replaceSwicoText = fs.readFileSync(
-      path.resolve(__dirname, `${targetPath}/config/swico.ts`),
-      'utf8'
-    );
-    replaceSwicoText = replaceSwicoText.replaceAll('npmType: \'npm\'', `npmType: '${npmType}'`);
-
-    fs.writeFile(`${targetPath}/config/swico.ts`, replaceSwicoText, 'utf8', (err) => {
-      if (err) {
-        return reject('An error occurred during the npm configuration.');
-      }
-      resolve(null);
-    });
-  });
-
-};
-
 // 项目husky初始化
 const initHusky = async (targetPath)=>{
   //报错处理
@@ -85,22 +65,13 @@ const initGit = async (targetPath)=>{
   });
 };
 
-const getStartScript = (npmType) => {
-  switch (npmType) {
-    case 'npm':
-      return 'npm run start';
-    case 'pnpm':
-      return 'pnpm run start';
-  }
-};
+
 
 const createSwicoApp = async ({ targetPath, projectName, templateType, npmType }) => {
   //拉取模板
   await downloadTemp(targetPath, templateType);
   //下载依赖
   await installModules({ targetPath, packageType: npmType });
-  //根据npmType动态调整模板配置swico.ts文件
-  await rewriteSwicoConfigFile(targetPath, npmType);
   // git和husky初始化(先git)
   await initGit(targetPath);
   await initHusky(targetPath);
@@ -114,7 +85,7 @@ const createSwicoApp = async ({ targetPath, projectName, templateType, npmType }
   console.log(
     'Now you can',
     chalk.cyan(`cd ${projectName}`),
-    `and ${chalk.cyan(`${getStartScript(npmType)}`)} to start your Swico App!`
+    `and ${chalk.cyan(`${npmType} run start`)} to start your Swico App!`
   );
 };
 

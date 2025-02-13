@@ -46,8 +46,8 @@ export const installModules = async (options: installProps) => {
   console.log(`\n${chalk.hex('#5f72f5')('Installing dependencies...')} \n`);
   return new Promise((resolve, reject) => {
     // const args = ['install', '--save', '--save-exact', '--loglevel', 'error'];
-    const args = ['install'];
-    const child = spawn(packageType, args, {
+    const args = [packageType,'install'];
+    const child = spawn('npx', args, {
       cwd: targetPath,
       stdio: ['pipe', process.stdout, process.stderr]
     });
