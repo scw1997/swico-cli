@@ -2,4 +2,4 @@
 /.idea/
 /dist/
 /.eslintcache
-/src/.swico/
+/.swico/
