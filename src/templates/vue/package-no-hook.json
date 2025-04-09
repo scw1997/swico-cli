@@ -7,17 +7,7 @@
     "start": "swico start",
     "build": "swico build",
     "build:analyze": "cross-env ANALYZE=true swico build",
-    "lint:fix": "eslint --fix src/**/*.{js,ts,vue} && prettier --write src/**/*.{js,ts,vue,css,less,scss,json,html,md}",
-    "husky:init": "npx husky init",
-    "test": "lint-staged",
-    "prepare": "husky"
-  },
-  "lint-staged": {
-    "src/**/*.{js,ts,vue}": [
-      "prettier --write",
-      "eslint --fix"
-    ],
-    "src/**/*.{css,less,scss,json,html,md}": "prettier --write"
+    "lint:fix": "eslint --fix src/**/*.{js,ts,vue} && prettier --write src/**/*.{js,ts,vue,css,less,scss,json,html,md}"
   },
   "repository": {
     "type": "git",
@@ -35,7 +25,7 @@
   "license": "ISC",
   "dependencies": {
     "vue": "~3.4.14",
-    "swico": "1.7.0"
+    "swico": "1.6.1"
   },
   "devDependencies": {
     "webpack": "5.94.0",
@@ -44,10 +34,6 @@
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "@typescript-eslint/parser": "6.19.0",
     "prettier": "3.2.5",
-    "husky": "9.0.10",
-    "@commitlint/cli": "18.5.0",
-    "@commitlint/config-conventional": "18.5.0",
-    "lint-staged": "15.2.1",
     "typescript": "5.3.3",
     "cross-env": "7.0.3"
   },

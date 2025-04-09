@@ -8,13 +8,21 @@ import path from 'path';
 const spinner = ora();
 
 //拉取远程git项目模板
-export const downloadTemp = (targetPath: string, templateType: 'react' | 'vue') => {
+export const downloadTemp = (targetPath: string, templateType: 'react' | 'vue',needGitHooks:boolean) => {
   spinner.start('pulling the built-in template... ');
   console.log('\n');
   return new Promise((resolve, reject) => {
-    copyDirFiles(path.resolve(__dirname, `../templates/${templateType}`), targetPath).then(res => {
+    copyDirFiles(path.resolve(__dirname, `../templates/${templateType}`), targetPath,(fileName)=>needGitHooks?fileName!=='package-no-hook.json':fileName!=='package.json').then(res => {
       // 处理gitignore文件重命名
       fs.renameSync(`${targetPath}/_gitignore`, `${targetPath}/.gitignore`);
+      // 不需要git hooks时
+      if(!needGitHooks){
+        //处理package.json文件重命名
+        fs.renameSync(`${targetPath}/package-no-hook.json`, `${targetPath}/package.json`);
+        //删除模板中的.husky文件夹和commitlint.config.js文件
+        fs.removeSync(`${targetPath}/.husky`);
+        fs.removeSync(`${targetPath}/commitlint.config.js`);
+      }
       resolve(null);
       spinner.succeed(chalk.green('Successfully pulled!'));
     }).catch(e => {

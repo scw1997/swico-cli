@@ -67,14 +67,16 @@ const initGit = async (targetPath)=>{
 
 
 
-const createSwicoApp = async ({ targetPath, projectName, templateType, npmType }) => {
+const createSwicoApp = async ({ targetPath, projectName, templateType, npmType,needGitHooks }) => {
   //拉取模板
-  await downloadTemp(targetPath, templateType);
+  await downloadTemp(targetPath, templateType,needGitHooks);
   //下载依赖
   await installModules({ targetPath, packageType: npmType });
   // git和husky初始化(先git)
   await initGit(targetPath);
-  await initHusky(targetPath);
+  if(needGitHooks){
+    await initHusky(targetPath);
+  }
 
 
   console.log(chalk.green('Successfully Created!' + '\n'));
@@ -90,9 +92,10 @@ const createSwicoApp = async ({ targetPath, projectName, templateType, npmType }
 };
 
 
-const handlePrompt: () => Promise<{ templateType: string, npmType: string }> = async () => {
-  // 选择模板类型
-  const { templateType } = await inquirer.prompt([
+const handlePrompt: () => Promise<{ templateType: string, npmType: string,needGitHooks:boolean }> = async () => {
+
+  const { templateType,npmType,needGitHooks } = await inquirer.prompt([
+    // 选择模板类型
     {
       name: 'templateType',
       type: 'list',
@@ -107,10 +110,24 @@ const handlePrompt: () => Promise<{ templateType: string, npmType: string }> = a
           value: 'vue'
         }
       ]
-    }
-  ]);
-  // 选择模板类型
-  const { npmType } = await inquirer.prompt([
+    },
+    // 是否需要Git Hooks
+    {
+      name: 'needGitHooks',
+      type: 'list',
+      message: chalk.yellowBright('Do you need Git Hooks？'),
+      choices: [
+        {
+          name: 'Yes',
+          value: true
+        },
+        {
+          name: 'No',
+          value: false
+        }
+      ]
+    },
+    //选择npm管理工具
     {
       name: 'npmType',
       type: 'list',
@@ -127,7 +144,9 @@ const handlePrompt: () => Promise<{ templateType: string, npmType: string }> = a
       ]
     }
   ]);
-  return { templateType, npmType};
+
+
+  return { templateType, needGitHooks,npmType};
 };
 
 // 执行创建项目命令
@@ -138,7 +157,7 @@ export default async function(projectName: string, options: Record<string, any>)
   const targetPath = path.join(cwd, projectName);
 
   //选择npm包管理工具和模板类型
-  const { npmType, templateType } = await handlePrompt();
+  const { npmType, templateType,needGitHooks } = await handlePrompt();
 
   // 目录是否已经存在？
   const isDirExists = fs.existsSync(targetPath);
@@ -181,7 +200,7 @@ export default async function(projectName: string, options: Record<string, any>)
       }
     }
   // 执行创建项目
-  createSwicoApp({ targetPath, projectName, templateType, npmType });
+  createSwicoApp({ targetPath, projectName, templateType, npmType,needGitHooks });
 
 
 }
