@@ -1,6 +1,6 @@
 {
   "name": "swico-cli",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "Cli for Front-End Framework Swico",
   "main": "index.js",
   "keywords": [
