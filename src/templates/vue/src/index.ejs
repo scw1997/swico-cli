@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,16 +11,18 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <Title>Swico App</Title>
     <script>
-        // swico配置文件中router->base配置项
-        window.routerBase = '<%= routerBase %>'
-        // swico配置文件中publicPath配置项
-        window.publicPath = '<%= publicPath %>'
+      // swico配置文件中router->base配置项
+      window.SWICO_ROUTER_BASE = '<%= routerBase %>'
+      // swico配置文件中publicPath配置项
+      window.SWICO_PUBLIC_PATH = '<%= publicPath %>'
     </script>
 </head>
 <body>
 <!--切勿删除此元素节点-->
 <div id="root">
-    <!-- 页面在这里渲染            -->
+    <!-- 页面在这里渲染    -->
 </div>
+
+
 </body>
 </html>

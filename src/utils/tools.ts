@@ -9,7 +9,7 @@ const spinner = ora();
 
 //拉取远程git项目模板
 export const downloadTemp = (targetPath: string, templateType: 'react' | 'vue',needGitHooks:boolean) => {
-  spinner.start('pulling the built-in template... ');
+  spinner.start('Pulling the built-in template... ');
   console.log('\n');
   return new Promise((resolve, reject) => {
     copyDirFiles(path.resolve(__dirname, `../templates/${templateType}`), targetPath,(fileName)=>needGitHooks?fileName!=='package-no-hook.json':fileName!=='package.json').then(res => {
@@ -64,7 +64,7 @@ export const installModules = async (options: installProps) => {
       if (code !== 0) {
         handleErr(reject);
       }
-      spinner.succeed(chalk.green('Install complete!\n '));
+      spinner.succeed(chalk.green('The installation complete!\n '));
       resolve(null);
     });
     child.once('error', (...args) => {

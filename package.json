@@ -1,6 +1,6 @@
 {
   "name": "swico-cli",
-  "version": "1.7.3",
+  "version": "2.0.0-beta.2",
   "description": "Cli for Front-End Framework Swico",
   "main": "index.js",
   "keywords": [
@@ -18,7 +18,8 @@
   "scripts": {
     "compile": "tsc && ts-node ./src/task.ts",
     "publish:official": "npm run compile && cd ./dist && npm publish",
-    "publish:beta": "npm run compile && cd ./dist && npm publish --tag=beta"
+    "publish:beta": "npm run compile && cd ./dist && npm publish --tag=beta",
+    "lint:fix": "eslint --fix src/**/*.{js,jsx,ts,tsx} "
   },
   "repository": {
     "type": "git",
@@ -29,20 +30,24 @@
   "dependencies": {
     "chalk": "4.1.2",
     "commander": "12.0.0",
-    "cross-spawn": "7.0.3",
+    "cross-spawn": "7.0.5",
     "download-git-repo": "3.0.2",
     "figlet": "1.7.0",
     "fs-extra": "11.2.0",
     "inquirer": "8.0.0",
-    "ora": "5.4.1",
-    "typescript": "5.3.3"
+    "ora": "5.4.1"
   },
   "devDependencies": {
-    "@types/node": "20.11.19",
-    "@typescript-eslint/eslint-plugin": "6.19.0",
-    "@typescript-eslint/parser": "6.19.0",
-    "eslint": "8.48.0",
-    "prettier": "3.2.5",
+    "eslint": "9.24.0",
+    "globals": "16.0.0",
+    "prettier": "3.5.3",
+    "typescript-eslint": "8.30.1",
+    "@eslint/js": "9.24.0",
+    "@types/node": "22.13.10",
+    "typescript": "5.8.3",
     "ts-node": "10.9.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
