@@ -195,6 +195,9 @@ export default async function (projectName: string, options: Record<string, any>
                 await fs.remove(targetPath);
                 spinner.succeed('Removed');
                 console.log('\n');
+            } else {
+                process.exit(1);
+                return;
             }
         }
     }
