@@ -1,5 +1,5 @@
 {
-  "name": "swico-template-vue",
+  "name": "$projectName",
   "version": "1.0.0",
   "description": "Vue template for front-end framework Swico",
   "main": "index.js",
@@ -24,7 +24,7 @@
     "url": "https://github.com/scw1997/swico.git"
   },
   "keywords": [
-    "swico-template-vue",
+    "$projectName",
     "swico",
     "typescript",
     "vue",
@@ -34,8 +34,8 @@
   "author": "scw",
   "license": "ISC",
   "dependencies": {
-    "vue": "~3.5.13",
-    "swico": "2.3.0"
+    "vue": "~3.5.23",
+    "swico": "2.4.0"
   },
   "devDependencies": {
     "autoprefixer": "10.3.7",
@@ -53,7 +53,7 @@
     "@commitlint/cli": "18.5.0",
     "@commitlint/config-conventional": "18.5.0",
     "lint-staged": "15.2.1",
-    "@rspack/core": "1.5.6"
+    "@rspack/core": "1.6.1"
   },
   "engines": {
     "node": ">=20.0.0"

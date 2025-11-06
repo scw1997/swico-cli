@@ -65,9 +65,18 @@ const initGit = async (targetPath) => {
     });
 };
 
+const updatePackageJson = async (targetPath, projectName) => {
+    const packageJsonFilePath = path.resolve(targetPath, './package.json');
+    const packageJsonText = await fs.readFile(packageJsonFilePath, 'utf8');
+    const newText = packageJsonText.replaceAll('$projectName', `${projectName}`);
+    await fs.writeFile(packageJsonFilePath, newText);
+};
+
 const createSwicoApp = async ({ targetPath, projectName, templateType, npmType, needGitHooks }) => {
     //拉取模板
     await downloadTemp(targetPath, templateType, needGitHooks);
+    //修改模板中package.json中的相关占位符为项目名
+    await updatePackageJson(targetPath, projectName);
     //下载依赖
     await installModules({ targetPath, packageType: npmType });
     // git和husky初始化(先git)

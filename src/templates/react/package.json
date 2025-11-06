@@ -1,5 +1,5 @@
 {
-  "name": "swico-template-react",
+  "name": "$projectName",
   "version": "1.0.0",
   "description": "React template for front-end framework Swico",
   "main": "index.js",
@@ -20,7 +20,7 @@
     "src/**/*.{css,less,scss,json,html,md}": "prettier --write"
   },
   "keywords": [
-    "swico-template-react",
+    "$projectName",
     "swico",
     "typescript",
     "javascript",
@@ -34,17 +34,17 @@
   "author": "scw",
   "license": "ISC",
   "dependencies": {
-    "react": "~19.1.0",
-    "react-dom": "~19.1.0",
-    "swico": "2.3.0"
+    "react": "~19.2.0",
+    "react-dom": "~19.2.0",
+    "swico": "2.4.0"
   },
   "devDependencies": {
     "autoprefixer": "10.3.7",
     "@commitlint/cli": "18.5.0",
     "@commitlint/config-conventional": "18.5.0",
     "@types/node": "22.14.0",
-    "@types/react": "19.1.0",
-    "@types/react-dom": "19.1.0",
+    "@types/react": "~19.2.0",
+    "@types/react-dom": "~19.2.0",
     "cross-env": "7.0.3",
     "eslint": "9.24.0",
     "@eslint/js": "9.24.0",
@@ -56,7 +56,7 @@
     "prettier": "3.5.3",
     "typescript": "5.8.3",
     "typescript-eslint": "8.30.1",
-    "@rspack/core": "1.5.6"
+    "@rspack/core": "1.6.1"
   },
   "engines": {
     "node": ">=20.0.0"

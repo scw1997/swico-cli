@@ -1,6 +1,6 @@
 {
   "name": "swico-cli",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Cli for Front-End Framework Swico",
   "main": "index.js",
   "keywords": [
@@ -13,7 +13,7 @@
     "cli"
   ],
   "bin": {
-    "swico": "./src/bin.js"
+    "swico-cli": "./src/bin.js"
   },
   "scripts": {
     "compile": "tsc && ts-node ./src/task.ts",
