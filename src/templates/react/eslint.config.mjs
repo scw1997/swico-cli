@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 const jsAndTsFile = '**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}';
 
 export default defineConfig([
-    globalIgnores(['node_modules/**/*', 'dist/**/*', '/.swico/**/*']),
+    globalIgnores(['node_modules/**/*', 'dist/**/*', '.swico/**/*']),
     /** js推荐配置 */
     eslint.configs.recommended,
     /** ts推荐配置 */

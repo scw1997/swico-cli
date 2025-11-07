@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig([
-    globalIgnores(['node_modules/**/*', 'dist/**/*', '/.swico/**/*']),
+    globalIgnores(['node_modules/**/*', 'dist/**/*', '.swico/**/*']),
     /** js推荐配置 */
     eslint.configs.recommended,
     /** ts推荐配置 */
