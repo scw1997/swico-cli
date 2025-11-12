@@ -1,4 +1,4 @@
-import { downloadTemp, installModules, logoText } from '../utils/tools';
+import { downloadTemp, installModules, logoText } from '../utils';
 // fs-extra 是对 fs 模块的扩展，支持 promise 语法
 import inquirer from 'inquirer';
 import path from 'path';

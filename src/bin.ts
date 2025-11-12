@@ -5,7 +5,7 @@ import { program } from 'commander';
 import handleInitApp from './command/create';
 import packageJson from '../package.json';
 import chalk from 'chalk';
-import { logoText } from './utils/tools';
+import { logoText } from './utils';
 
 program
     .command('create <project-name>')

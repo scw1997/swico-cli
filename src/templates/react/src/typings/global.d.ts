@@ -9,7 +9,7 @@ declare module '*.less';
 declare module '*.scss';
 declare module '*.css';
 
-interface Window {
-    routerBase: string;
-    publicPath: string;
-}
+//Swico默认注入的全局变量
+declare const SWICO_PUBLIC_PATH: string;
+declare const SWICO_ROUTER_BASE: string;
+declare const SWICO_ENV: 'dev' | 'prod';
