@@ -49,6 +49,7 @@ export default defineConfig([
             'vue/html-self-closing': 0, // 关闭自闭合标签要求，根据个人或团队喜好配置
             'vue/max-attributes-per-line': 0,
             'vue/no-v-html': 0, // 允许使用 v-html 指令
+            'vue/singleline-html-element-content-newline': 0, // 强制单行元素标签的开始和结束标签在行末
             'vue/no-unused-components': 1, // 不允许存在未使用的组件
             // 关闭名称校验
             'vue/multi-word-component-names': 0,
