@@ -1,4 +1,4 @@
-import { Outlet } from 'swico';
+import { Outlet } from 'swico/react';
 
 const Layout: React.FC = () => {
     return (
