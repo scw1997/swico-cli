@@ -1,6 +1,6 @@
 {
   "name": "swico-cli",
-  "version": "2.9.0",
+  "version": "3.0.0-beta.2",
   "description": "Cli for Front-End Framework Swico",
   "main": "index.js",
   "keywords": [
@@ -19,6 +19,7 @@
     "compile": "tsc && ts-node ./src/task.ts",
     "publish:official": "npm run compile && cd ./dist && npm publish",
     "publish:beta": "npm run compile && cd ./dist && npm publish --tag=beta",
+    "publish:alpha": "npm run compile && cd ./dist && npm publish --tag=alpha",
     "lint:fix": "eslint --fix src/**/*.{js,jsx,ts,tsx} "
   },
   "repository": {
@@ -48,6 +49,6 @@
     "ts-node": "10.9.1"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=20.19.0"
   }
 }
