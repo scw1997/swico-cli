@@ -7,13 +7,13 @@
     "start": "swico start",
     "build": "swico build",
     "build:analyze": "cross-env ANALYZE=true swico build",
-    "lint:fix": "eslint --fix src/**/*.{js,jsx,ts,tsx} && prettier --write src/**/*.{js,jsx,ts,tsx,css,less,scss,json,html,md}",
+    "lint:fix": "eslint --fix src/**/*.{js,jsx,ts,tsx,mjs,mts} && prettier --write src/**/*.{css,less,scss,json,html,md}",
     "husky:init": "npx husky init",
     "test": "lint-staged",
     "prepare": "husky"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
+    "src/**/*.{js,jsx,ts,tsx,mjs,mts}": [
       "prettier --write",
       "eslint --fix"
     ],
@@ -36,7 +36,7 @@
   "dependencies": {
     "react": "~19.2.0",
     "react-dom": "~19.2.0",
-    "swico": "3.0.0-beta.3"
+    "swico": "3.0.0-beta.6"
   },
   "devDependencies": {
     "@commitlint/cli": "18.5.0",

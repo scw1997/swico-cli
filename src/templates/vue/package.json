@@ -7,13 +7,13 @@
     "start": "swico start",
     "build": "swico build",
     "build:analyze": "cross-env ANALYZE=true swico build",
-    "lint:fix": "eslint --fix src/**/*.{js,ts,vue} && prettier --write src/**/*.{js,ts,vue,css,less,scss,json,html,md}",
+    "lint:fix": "eslint --fix src/**/*.{js,jsx,ts,tsx,mjs,mts,vue} && prettier --write src/**/*.{css,less,scss,json,html,md}",
     "husky:init": "npx husky init",
     "test": "lint-staged",
     "prepare": "husky"
   },
   "lint-staged": {
-    "src/**/*.{js,ts,vue}": [
+    "src/**/*.{js,jsx,ts,tsx,mjs,mts,vue}": [
       "prettier --write",
       "eslint --fix"
     ],
@@ -35,7 +35,7 @@
   "license": "ISC",
   "dependencies": {
     "vue": "~3.5.23",
-    "swico": "3.0.0-beta.3"
+    "swico": "3.0.0-beta.6"
   },
   "devDependencies": {
     "@types/node": "22.14.1",
