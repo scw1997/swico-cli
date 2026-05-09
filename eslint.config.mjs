@@ -1,12 +1,7 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import eslint from '@eslint/js';
 import tsEslint from 'typescript-eslint';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export default defineConfig([
     globalIgnores(['node_modules/**/*', 'dist/**/*', '.idea/**/*']),

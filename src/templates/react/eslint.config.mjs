@@ -2,14 +2,8 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import globals from 'globals';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import eslint from '@eslint/js';
 import tsEslint from 'typescript-eslint';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const jsAndTsFile = '**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}';
 
 export default defineConfig([
@@ -69,7 +63,7 @@ export default defineConfig([
             'no-restricted-syntax': 0,
             'no-eval': 0,
             'no-continue': 0,
-            'global-require': 1,
+            'global-require': 0,
             camelcase: 0,
             'import/no-extraneous-dependencies': 0,
             'import/prefer-default-export': 0,
@@ -174,7 +168,8 @@ export default defineConfig([
             '@typescript-eslint/no-use-before-define': 0,
             '@typescript-eslint/explicit-module-boundary-types': 0,
             '@typescript-eslint/no-non-null-assertion': 0,
-            '@typescript-eslint/ban-ts-comment': 0
+            '@typescript-eslint/ban-ts-comment': 0,
+            '@typescript-eslint/no-require-imports': 0
         }
     }
 ]);

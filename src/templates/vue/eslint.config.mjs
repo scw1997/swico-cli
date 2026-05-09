@@ -1,13 +1,8 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import eslint from '@eslint/js';
 import tsEslint from 'typescript-eslint';
 import eslintPluginVue from 'eslint-plugin-vue';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export default defineConfig([
     globalIgnores(['node_modules/**/*', 'dist/**/*', '.swico/**/*']),
@@ -78,7 +73,7 @@ export default defineConfig([
             'no-restricted-syntax': 0, // 禁止使用特定的语法
             'no-eval': 0, // 禁用 eval()，eval() 函数可计算某个字符串，并执行其中的的 JavaScript 代码。
             'no-continue': 0, // 禁用 continue 语句
-            'global-require': 1, // 要求 require() 出现在顶层模块作用域中
+            'global-require': 0, // 要求 require() 出现在顶层模块作用域中
             camelcase: 0, //强制驼峰法命名
             'import/no-extraneous-dependencies': 0,
             'import/prefer-default-export': 0,
@@ -124,6 +119,7 @@ export default defineConfig([
             '@typescript-eslint/no-use-before-define': 0,
             '@typescript-eslint/explicit-module-boundary-types': 0,
             '@typescript-eslint/no-non-null-assertion': 0,
+            '@typescript-eslint/no-require-imports': 0,
             '@typescript-eslint/ban-ts-comment': 0 //禁止使用ts-ignore
         }
     }
