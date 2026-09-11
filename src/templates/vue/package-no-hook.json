@@ -20,7 +20,8 @@
     "typescript",
     "vue",
     "javascript",
-    "rsbuild"
+    "rsbuild",
+    "rspack"
   ],
   "author": "scw",
   "license": "ISC",

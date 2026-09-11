@@ -25,7 +25,8 @@
     "typescript",
     "javascript",
     "react",
-    "rsbuild"
+    "rsbuild",
+    "rspack"
   ],
   "repository": {
     "type": "git",
