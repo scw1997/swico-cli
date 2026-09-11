@@ -1,6 +1,6 @@
 {
   "name": "swico-cli",
-  "version": "3.1.0-beta.4",
+  "version": "3.1.0",
   "description": "Cli for Front-End Framework Swico",
   "main": "index.js",
   "keywords": [
@@ -10,6 +10,8 @@
     "react",
     "vue",
     "swico",
+    "rsbuild",
+    "rspack",
     "cli"
   ],
   "bin": {

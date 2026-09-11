@@ -46,7 +46,7 @@
       ]
     }
   },
-  //secywo config配置文件支持es module导出
+  //swico config配置文件支持es module导出
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
