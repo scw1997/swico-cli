@@ -37,7 +37,7 @@
   "dependencies": {
     "react": "~19.2.6",
     "react-dom": "~19.2.6",
-    "swico": "~3.1.0"
+    "swico": "~3.2.0"
   },
   "devDependencies": {
     "@commitlint/cli": "18.5.0",
@@ -46,9 +46,9 @@
     "@types/react": "~19.2.14",
     "@types/react-dom": "~19.2.3",
     "cross-env": "7.0.3",
-    "eslint": "9.39.4",
-    "@eslint/js": "9.39.4",
-    "eslint-plugin-react": "7.37.5",
+    "eslint": "10.11.0",
+    "@eslint/js": "10.0.1",
+    "@eslint-react/eslint-plugin": "5.20.5",
     "eslint-plugin-react-hooks": "7.1.1",
     "globals": "17.6.0",
     "husky": "9.0.10",

@@ -1,6 +1,6 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
-import eslint from '@eslint/js';
+import jsEslint from '@eslint/js';
 import tsEslint from 'typescript-eslint';
 import eslintPluginVue from 'eslint-plugin-vue';
 import vueParser from 'vue-eslint-parser';
@@ -84,7 +84,7 @@ const tsRules = {
 export default defineConfig([
     globalIgnores(['node_modules/**/*', 'dist/**/*', '.swico/**/*']),
     /** js推荐配置 */
-    eslint.configs.recommended,
+    jsEslint.configs.recommended,
     /** ts推荐配置 */
     ...tsEslint.configs.recommended,
     /** vue推荐配置 */
