@@ -108,6 +108,7 @@ export default defineConfig([
             'no-undef': 0,
             'no-use-before-define': 0,
             'jsx-quotes': [2, 'prefer-double'],
+            '@eslint-react/exhaustive-deps': 0,
             '@typescript-eslint/no-unused-vars': 0,
             '@typescript-eslint/no-explicit-any': 0,
             '@typescript-eslint/no-empty-interface': 0,
